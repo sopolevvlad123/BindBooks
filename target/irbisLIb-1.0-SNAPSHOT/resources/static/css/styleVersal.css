@@ -1,0 +1,144 @@
+html,body{
+    min-height: 100%;
+    height: 100%;
+}
+div{
+    overflow: auto;
+}
+h2{
+    text-align: center;
+    font-family: Roboto;
+}
+img{
+    height: 700px !important;
+
+}
+.all{
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+}
+.bace{
+    background-color: #C1FFC1;
+    height: 100%;
+}
+.btnStyle{
+    background-color: #3CB371;
+
+}
+.btnStyle:hover{
+    background-color: #F4A460;
+
+}
+.fitter{
+    border: 2px;
+    border-radius: 10px;
+    width: 96%;
+    margin-left: 2%;
+    box-shadow:1px 1px 4px #698B69;
+}
+
+.contentWrapper{
+    background-color: #8FBC8F;
+    height:91%;
+}
+.topHeader{
+    background-color: #2E8B66;
+    box-shadow: 0px 2px #698B69;
+}
+.postgrace {
+    background-color:#E6E6FA;
+    box-shadow:1px 1px 4px #698B69;
+    border: 2px;
+    border-radius: 10px;
+    height: 98%;
+    margin-top: 1%;
+    display: block;
+
+}
+.irbis {
+    background-color:#E6E6FA;
+    box-shadow:1px 1px 4px #698B69;
+    border: 2px;
+    border-radius: 10px;
+    height: 98%;
+    margin-top: 1%;
+    display: block;
+
+}
+.postbookInfo{
+    width: 98%;
+    margin-top: 5px;
+    background-color: #FAF0E6;
+    border-radius: 5px;
+    height: 90px;
+}
+.irbisbookInfo{
+    width: 98%;
+    margin-top: 5px;
+    background-color: #FAF0E6;
+    border-radius: 5px;
+    height: 190px;
+}
+
+.postView{
+    margin-top: 10px;
+    height: 700px;
+
+}
+.jpgRewind{
+
+    margin-top: 15px;
+
+}
+.bookRewind{
+    position: relative;
+    margin-top: 5%;
+}
+#prevPage{
+    margin-left: 50px;
+    float: left;
+}
+#nextPage{
+    margin-right: 50px;
+    float: right;
+}
+
+#prevBook{
+    box-sizing: border-box;
+    margin-left: 70px;
+    float: left;
+    width: 25%;
+}
+#nextBook{
+    margin-right: 70px;
+    float: right;
+    width: 25%;
+}
+.test{
+    display: inline-block;
+    float: none;
+    color: red;
+    align-items:center;
+    vertical-align: middle;
+}
+.irbisbookRewind{
+    margin-top: 7px;
+}
+.searchForm{
+
+}
+.searchResult{
+    width: 98%;
+    margin-top: 5px;
+    background-color: #FAF0E6;
+    border-radius: 5px;
+
+}
+
+
+
+
+
+
+ 
