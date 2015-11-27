@@ -1,0 +1,38 @@
+INFOW_H
+Информационный формат (HTML)
+FULLW_TEST
+HTML формат (тестовый)
+USMRCW
+В формате USMARC
+UMARCW
+В формате UNIMARC
+BRIEFP
+В форме короткого бибописания
+
+ATHRAW
+Основной формат
+INFOW
+Информационный формат
+
+KN_arch_H
+БО арх.док (HTML)
+KN_arch
+БО арх.док
+
+
+INFOW_H
+Информационный формат (HTML)
+FULLW_TEST
+HTML формат (тестовый)
+USMRCW
+В формате USMARC
+UMARCW
+В формате UNIMARC
+BRIEFP
+В форме короткого бибописания
+*****
+
+Dop
+Дополнительные данные
+TEZ
+Полное описание
