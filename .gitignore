@@ -3,5 +3,6 @@
 out/
 *.properties
 *.cfg.xml
-target/
+target/*
 *.jpg
+

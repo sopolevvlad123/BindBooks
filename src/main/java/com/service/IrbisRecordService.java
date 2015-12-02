@@ -296,6 +296,11 @@ public class IrbisRecordService {
     private String getBibDescription(){
         String resultData = null;
       try {
+          System.out.println("getBibDescription"+irbisRecord64.getMfn());
+
+          System.out.println("irbisClient64------"+irbisClient64
+          );
+          System.out.println("irbisRecord64------"+irbisRecord64);
            resultData = irbisClient64.readFormatedRecord(irbisRecord64.getMfn(), "@BRIEFP");
            resultData = irbisService.filterAnswer(resultData);
       } catch ( Exception e){

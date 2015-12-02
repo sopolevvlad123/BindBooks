@@ -7,6 +7,7 @@ import com.entity.BookIrbis;
 import com.service.BookService;
 import com.service.DAOService;
 import com.service.IrbisService;
+import com.service.UrlSevice;
 import it.sauronsoftware.ftp4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +27,8 @@ public class BindController {
     @Autowired
     private DAOService daoService;
     @Autowired
-    private BookService bookService;
-    @Autowired
-    private IrbisService irbisService;
+    private UrlSevice urlSevice;
+
 
 
     @ModelAttribute
@@ -44,13 +44,25 @@ public class BindController {
             FTPException, FTPListParseException, FTPIllegalReplyException {
 
         BookDao bookDao = daoService.getBookDao();
+        System.out.println("mfn"+mfn);
         IrbisDao irbisDao = daoService.getIrbisDao();
-
-        //Book book = bookDao.getBookById(bookId);
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
+        System.out.println("irbisDao"  + irbisDao);
 
-        bookDao.updateBook(bookId,bookIrbis);
-        irbisDao.setUrl("Url",mfn);
+        bookDao.updateBook(bookId, bookIrbis);
+        System.out.println("irbisbook" + bookIrbis);
+        //irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/noBook")
+    public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId)
+            throws IOException, FTPAbortedException, FTPDataTransferException,
+            FTPException, FTPListParseException, FTPIllegalReplyException {
+
+        BookDao bookDao = daoService.getBookDao();
+        bookDao.updateMfn(bookId, -1);
 
     }
+
 }

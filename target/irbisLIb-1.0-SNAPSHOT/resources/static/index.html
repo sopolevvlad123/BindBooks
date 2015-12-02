@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 
 <html>
-=======
+
 
 <head>
     <title>Test</title>
@@ -39,15 +39,12 @@
                     <b> Год:</b>  {{book.year}}  <br>
                     <b> Index</b>   {{ index.value}} <br>
                 </div>
-
-
                 <div class="col-md-12 postView fitter"  ng-controller="CarouselCtrl"  data-ng-init="initImage()" >
 
                     <div class="container slider test" >
                         <img ng-repeat="photo in photos" class="slide " ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
                         <a class="arrow prev" href="#" ng-click="showPrev()"></a>
                         <a class="arrow next" href="#" ng-click="showNext()"></a>
-
                     </div>
 
                 </div>
@@ -61,7 +58,6 @@
             <!-- LEFT SIDE   !!!!!!!!!!!!!!!! -->
 
         </div>
-
         <div class="col-md-6 contentWrapper"  ng-controller="SearchCtrl">
             <div class="col-md-12 irbis " >
 
@@ -80,14 +76,13 @@
                     <p>{{arrIrbis.length}}</p>
                 </div>
                 <div class="col-md-12 irbisbookInfo fitter">
-                        <b>  {{arrIrbis[indexIrbis].mfn}} </b><br>
-                     <img ng-if = "proccesing"  ng-src="static/processing.gif" >
+                    <b>  {{arrIrbis[indexIrbis].mfn}} </b><br>
+                    <img ng-if = "proccesing"  ng-src="static/processing.gif" >
 
-                       <div >
-                           <!--{{arrIrbis[indexIrbis].html | parseUrl }}-->
-                           <section ng-bind-html="arrIrbis[indexIrbis].html"></section>
-                       </div>
-
+                    <div >
+                        <!--{{arrIrbis[indexIrbis].html | parseUrl }}-->
+                        <section ng-bind-html="arrIrbis[indexIrbis].html"></section>
+                    </div>
 
                 </div>
                 <div class="col-md-12   irbisbookRewind" >
@@ -96,8 +91,9 @@
                 </div>
 
 
-                <div class=" col-md-12 col-md-offset-5 bindButton">
-                    <button type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
+                <div class = " col-md-12 col-md-offset-5 bindButton" ng-controller="BindCtrl">
+                    <button ng-click="bind()" type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
+
                 </div>
             </div>
 
@@ -105,9 +101,9 @@
         <footer class="footer-fluid">
             <p>footer</p>
         </footer>
-<
-        </div>
+
     </div>
+</div>
 
 <!-- Modules -->
 <script src="static/js/app.js"></script>

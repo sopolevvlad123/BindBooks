@@ -33,7 +33,7 @@ public class JsonController {
     private JsonWrappingServise jsonWrappingServise;
     @PostConstruct
     public void init() {
-        System.out.println("Hello");
+        System.out.println("Hello ");
         this.bookList = bookService.getAllBooks();
     }
     @ModelAttribute
