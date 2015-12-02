@@ -63,7 +63,9 @@ app.controller('CarouselCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.addImage = function () {
 
         for (var i = 0; i < 10; i++) {
-            $scope.photos.push({src: '/home/pc8/Документы/380/' + ($scope._Index + 1 + i) + '.jpg'});
+            $scope.photos.push({src: 'static/380/'
+
+            + ($scope._Index + 1 + i) + '.jpg'});
 
         }
 
@@ -152,14 +154,14 @@ app.controller('BindCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.bind = function () {
 
-
+        console.log("bind, bookId =  " + $scope.book.bookId + "and mfn = " + $scope.arrIrbis[$scope.indexIrbis].mfn);
         $http.get('http://10.251.0.10:8080/bindBook', {
             params: {
                 bookId: $scope.book.bookId,
                 mfn: $scope.arrIrbis[$scope.indexIrbis].mfn
             }
         }).success(function (data) {
-            console.log("bind, bookId =  " + $scope.book.bookId + "and mfn = " + $scope.arrIrbis[$scope.indexIrbis].mfn);
+
 
         })
             .error(function (err) {

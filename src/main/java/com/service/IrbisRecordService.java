@@ -19,7 +19,7 @@ public class IrbisRecordService {
     }
 
     private IrbisService irbisService = new IrbisService();
-    private IrbisClient64 irbisClient64;
+    private IrbisClient64 irbisClient64 ;
     private IrbisRecord64 irbisRecord64;
 
 
@@ -28,9 +28,9 @@ public class IrbisRecordService {
      *
      * @return
      */
-    public BookIrbis convert(IrbisRecord64 irbisRecord64) {
+    public BookIrbis convert(IrbisRecord64 irbisRecord64, IrbisClient64 irbisClient64 ) {
         this.irbisRecord64 = irbisRecord64;
-
+        this.irbisClient64 = irbisClient64;
         BookIrbis bookIrbis = new BookIrbis();
         bookIrbis.setMfn(irbisRecord64.getMfn());
         bookIrbis.setName(getName());
@@ -294,8 +294,10 @@ public class IrbisRecordService {
     }
 
     private String getBibDescription(){
+
         String resultData = null;
       try {
+
            resultData = irbisClient64.readFormatedRecord(irbisRecord64.getMfn(), "@BRIEFP");
            resultData = irbisService.filterAnswer(resultData);
       } catch ( Exception e){

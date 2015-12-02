@@ -74,7 +74,7 @@ public class IrbisDaoImpl implements IrbisDao {
         try {
             irbisClient64.connect();
             IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);
-            bookIrbis = irbisRecordService.convert(irbisRecord64);
+            bookIrbis = irbisRecordService.convert(irbisRecord64, irbisClient64);
             String resultData = irbisClient64.readFormatedRecord(mfn, "@BRIEFP");
             resultData = irbisService.filterAnswer(resultData);
             bookIrbis.setLibDescription(resultData);
