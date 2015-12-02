@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app="ui.bootstrap.demo">
+<html >
 <head>
     <title>Test</title>
     <meta charset="utf-8">
@@ -7,12 +7,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
     <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+    <script src="http://www.strictly-software.com/scripts/downloads/encoder.js"></script>
+    <script src="https://code.angularjs.org/1.2.20/angular-sanitize.min.js"></script>
     <script src="static/js/example.js"></script>
     <link href="static/css/styleVersal.css" rel="stylesheet" media="screen">
+    <link href="static/css/slider-style.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
-<body>
-<div class = "container-fluid all">
+<body ng-app="myApp" >
+<div class = "container-fluid all"  ng-controller="MainController" data-ng-init="init()"   >
     <header>
         <div class="row-fluid topHeader">
             <div class="col-md-12">
@@ -23,64 +27,65 @@
     <div class="row bace" >
         <div class="col-md-6 contentWrapper" >
             <div class="col-md-11.9 postgrace " >
-                <div class="col-md-12 postbookInfo fitter">
-                    <b> Вид документа</b> : Однотомное издание<br>
-                    <b> Шифр издания</b> : Х628.332/Л 55       <br>
-                    <b> Автор(ы)</b> :     Лившиц Е.<br>
-                    <b> Заглавие</b> : Социальные корни беспризорности.<br>
+                <div class="col-md-12 postbookInfo fitter"   >
+                    <b> Автор: </b> {{book.author}} <br>
+                    <b>Название:</b> {{ book.name}}   <br>
+                    <b> Год:</b>  {{book.year}}  <br>
+                    <b> Index</b>   {{ index.value}} <br>
                 </div>
 
-                <div class="col-md-12 postView fitter" >
-                    <div ng-controller="CarouselDemoCtrl">
-                        <div>
-                            <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
-                                <uib-slide ng-repeat="slide in slides" active="slide.active">
-                                    <img ng-src="{{slide.image}}">
-                                </uib-slide>
-                            </uib-carousel>
-                        </div>
+
+                <div class="col-md-12 postView fitter"  ng-controller="CarouselCtrl"  data-ng-init="initImage()" >
+
+                    <div class="container slider test" >
+                        <img ng-repeat="photo in photos" class="slide " ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
+                        <a class="arrow prev" href="#" ng-click="showPrev()"></a>
+                        <a class="arrow next" href="#" ng-click="showNext()"></a>
                     </div>
+
                 </div>
 
                 <div class="col-md-12  jpgRewind">
-                    <button type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
-                    <button type="button" class="btnStyle btn" id="nextBook">NEXT BOOK</button>
+                    <button ng-if="index.value != 0" ng-click="decrement()" type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
+                    <button ng-click="func()" type="button" class="btnStyle btn" id="nextBook" >NEXT BOOK</button>
                 </div>
             </div>
 
+            <!-- LEFT SIDE   !!!!!!!!!!!!!!!! -->
+
         </div>
 
-        <div class="col-md-6 contentWrapper">
+        <div class="col-md-6 contentWrapper"  ng-controller="SearchCtrl">
             <div class="col-md-12 irbis " >
                 <div class="col-md-9 col-md-offset-3 col-sd-offset-3  searchForm">
-                    <form class="navbar-form " role="search">
+                    <form class="navbar-form " role="search" ng-submit="search()">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search" ng-model = "keyword">
                         </div>
-                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        <button  type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                     </form>
                 </div>
 
                 <div class="col-md-12 searchResult fitter">
-                    <p>Search result info zaglushkya</p>
+                    <p>{{arrIrbis.length}}</p>
                 </div>
                 <div class="col-md-12 irbisbookInfo fitter">
-                        <b> Вид документа</b> : Однотомное издание<br>
-                        <b> Шифр издания</b> : Х628.332/Л 55       <br>
-                        <b> Автор(ы)</b> :     Лившиц Е.<br>
-                        <b> Заглавие</b> : Социальные корни беспризорности.<br>
-                        <b> Выходные данные</b> : Москва: Б. и., 1925<br>
-                        <b> Колич.характеристики</b> :206 с<br> <b>  Цена    </b> : Б.ц.<br>
-                        <b> ББК</b> :    Х628.332<br> <b> Ключевые слова
-                    </b> (''Своб.индексиров.''): беспризорность
+                        <b>  {{arrIrbis[indexIrbis].mfn}} </b><br>
+                     <img ng-if = "proccesing"  ng-src="static/processing.gif" >
+
+                       <div >
+                           <!--{{arrIrbis[indexIrbis].html | parseUrl }}-->
+                           <section ng-bind-html="arrIrbis[indexIrbis].html"></section>
+                       </div>
+
                 </div>
-                <div class="col-md-12   irbisbookRewind">
-                    <button type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
-                    <button type="button" class="btnStyle btn " id="nextBook">NEXT BOOK</button>
+                <div class="col-md-12   irbisbookRewind" >
+                    <button ng-click="prevIrbis()"  type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
+                    <button ng-click="nextIrbis()" type="button" class="btnStyle btn " id="nextBook">NEXT BOOK</button>
                 </div>
 
-                <div class = " col-md-12 col-md-offset-5 bindButton">
-                    <button type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
+                <div class = " col-md-12 col-md-offset-5 bindButton" ng-controller="bindCtrl">
+                    <button ng-click="bind()" type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
                 </div>
             </div>
 
@@ -90,5 +95,17 @@
         </footer>
         </div>
     </div>
+
+<!-- Modules -->
+<script src="static/js/app.js"></script>
+
+<!-- Controllers -->
+<script src="static/js/controllers/MainController.js"></script>
+
+<!-- Services -->
+<script src="static/js/services/bookService.js"></script>
+<!-- Services -->
+<script src="static/js/services/download.js"></script>
+
 </body>
 </html>
