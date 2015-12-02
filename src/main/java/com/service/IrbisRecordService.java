@@ -5,13 +5,18 @@ import com.irbis.IrbisClient64;
 import com.irbis.IrbisField64;
 import com.irbis.IrbisRecord64;
 import com.irbis.IrbisSubField64;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by pc8 on 19.11.15.
  */
+@Service
+
 public class IrbisRecordService {
+    public IrbisRecordService() {
+    }
 
     private IrbisService irbisService = new IrbisService();
     private IrbisClient64 irbisClient64;

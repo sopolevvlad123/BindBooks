@@ -1,13 +1,19 @@
 package com.service;
 
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 
 /**
  * Created by pc8 on 06.11.15.
  */
-public class FileService {
+@Service
 
-//    @Value("${directory}")
+public class FileService {
+    public FileService() {
+    }
+
+    //    @Value("${directory}")
 //    private String DIRECTORY;
     private String DIRECTORY = "/home/pc8/TEST/";
 

@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class IrbisClientFactory {
+    public IrbisClientFactory() {
+    }
 
     @Value("${irbis.url}")
     private String URL;
     @Value("${irbis.port}")
-    private Integer PORT;
+    private String PORT;
     @Value("${irbis.username}")
     private String USERNAME;
     @Value("${irbis.password}")

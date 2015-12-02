@@ -857,7 +857,7 @@ public class IrbisClient64 {
         List<String> answer = executeCommand(SERVER_COMMAND_SEARCH,
                 userData.toString(),
                 ENCODING_ANSI,
-                ENCODING_UTF8
+                ENCODING_ANSI
         );
 
         checkReturnCode(answer.get(0));

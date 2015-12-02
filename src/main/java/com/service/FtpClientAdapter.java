@@ -1,6 +1,7 @@
 package com.service;
 
 import it.sauronsoftware.ftp4j.*;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +11,10 @@ import java.util.List;
 /**
  * Created by pc8 on 05.11.15.
  */
+@Service
 public class FtpClientAdapter {
+    public FtpClientAdapter() {
+    }
 
     private String login;
     private String password;

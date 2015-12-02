@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app="ui.bootstrap.demo">
+<html>
 <head>
     <title>Test</title>
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
-<div class = "container-fluid all">
+<div class="container-fluid all">
     <header>
         <div class="row-fluid topHeader">
             <div class="col-md-12">
@@ -20,17 +20,17 @@
             </div>
         </div>
     </header>
-    <div class="row bace" >
-        <div class="col-md-6 contentWrapper" >
-            <div class="col-md-11.9 postgrace " >
+    <div class="row bace">
+        <div class="col-md-6 contentWrapper">
+            <div class="col-md-11.9 postgrace ">
                 <div class="col-md-12 postbookInfo fitter">
                     <b> Вид документа</b> : Однотомное издание<br>
-                    <b> Шифр издания</b> : Х628.332/Л 55       <br>
-                    <b> Автор(ы)</b> :     Лившиц Е.<br>
+                    <b> Шифр издания</b> : Х628.332/Л 55 <br>
+                    <b> Автор(ы)</b> : Лившиц Е.<br>
                     <b> Заглавие</b> : Социальные корни беспризорности.<br>
                 </div>
 
-                <div class="col-md-12 postView fitter" >
+                <div class="col-md-12 postView fitter">
                     <div ng-controller="CarouselDemoCtrl">
                         <div>
                             <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
@@ -49,14 +49,16 @@
             </div>
 
         </div>
+
         <div class="col-md-6 contentWrapper">
-            <div class="col-md-12 irbis " >
+            <div class="col-md-12 irbis ">
                 <div class="col-md-9 col-md-offset-3 col-sd-offset-3  searchForm">
                     <form class="navbar-form " role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
                         </div>
-                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
+                        </button>
                     </form>
                 </div>
 
@@ -64,21 +66,21 @@
                     <p>Search result info zaglushkya</p>
                 </div>
                 <div class="col-md-12 irbisbookInfo fitter">
-                        <b> Вид документа</b> : Однотомное издание<br>
-                        <b> Шифр издания</b> : Х628.332/Л 55       <br>
-                        <b> Автор(ы)</b> :     Лившиц Е.<br>
-                        <b> Заглавие</b> : Социальные корни беспризорности.<br>
-                        <b> Выходные данные</b> : Москва: Б. и., 1925<br>
-                        <b> Колич.характеристики</b> :206 с<br> <b>  Цена    </b> : Б.ц.<br>
-                        <b> ББК</b> :    Х628.332<br> <b> Ключевые слова
-                    </b> (''Своб.индексиров.''): беспризорность
+                    <b> Вид документа</b> : Однотомное издание<br>
+                    <b> Шифр издания</b> : Х628.332/Л 55 <br>
+                    <b> Автор(ы)</b> : Лившиц Е.<br>
+                    <b> Заглавие</b> : Социальные корни беспризорности.<br>
+                    <b> Выходные данные</b> : Москва: Б. и., 1925<br>
+                    <b> Колич.характеристики</b> :206 с<br> <b> Цена </b> : Б.ц.<br>
+                    <b> ББК</b> : Х628.332<br> <b> Ключевые слова
+                </b> (''Своб.индексиров.''): беспризорность
                 </div>
                 <div class="col-md-12   irbisbookRewind">
                     <button type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
                     <button type="button" class="btnStyle btn " id="nextBook">NEXT BOOK</button>
                 </div>
 
-                <div class = " col-md-12 col-md-offset-5 bindButton">
+                <div class=" col-md-12 col-md-offset-5 bindButton">
                     <button type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
                 </div>
             </div>
@@ -87,6 +89,8 @@
         <footer class="footer-fluid">
             <p>footer</p>
         </footer>
-
+<
+        </div>
+    </div>
 </body>
 </html>

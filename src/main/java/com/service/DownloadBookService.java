@@ -13,6 +13,8 @@ import java.util.List;
  */
 @Service
 public class DownloadBookService {
+    public DownloadBookService() {
+    }
 
     @Value("${ip}")
     private String IP;
@@ -52,12 +54,12 @@ public class DownloadBookService {
 //           ftpClientAdapter.setLocalpath(DIRECTORY);
 //!!!!ЗАМЕНИ ИП И ПУТЬ !!!!!!!!!
         ftpClientAdapter.connect("77.244.44.21");
-        File bookDir = new File("/home/pc8/TEST/" + bookId);
+        File bookDir = new File("/home/pc9/TEST/" + bookId);
         if (!bookDir.exists()) {
             bookDir.mkdir();
         }
 
-        ftpClientAdapter.setLocalpath("/home/pc8/TEST/" + bookId);
+        ftpClientAdapter.setLocalpath("/home/pc9/TEST/" + bookId);
 
         changeDirToCoreState(bookId);
         ftpClientAdapter.changeDirectory(bookId);
@@ -75,6 +77,13 @@ public class DownloadBookService {
         System.out.println("CountP="+  countPage + ", CurrentP"+ currentPage + " ,Range" + pageRange );
         ftpClientAdapter.disconnect();
     }
+
+
+
+
+
+
+
 
     private void checkPageRange() {
         if (currentPage > countPage) {

@@ -1,5 +1,7 @@
 package com;
 
+import com.irbis.IrbisClient64;
+import com.irbis.IrbisClient64Exception;
 import it.sauronsoftware.ftp4j.*;
 import com.dao.IrbisDaoImpl;
 import com.entity.BookIrbisHtml;
@@ -32,10 +34,25 @@ public class MainTest {
 //        }
 
 
-        IrbisDaoImpl irbisDao = new IrbisDaoImpl();
-        List<BookIrbisHtml> list = irbisDao.find("Порядок");
-        for (BookIrbisHtml bookIrbisHtml : list){
-            System.out.println(bookIrbisHtml);
+//        IrbisDaoImpl irbisDao = new IrbisDaoImpl();
+//        List<BookIrbisHtml> list = irbisDao.find("Порядок");
+//        for (BookIrbisHtml bookIrbisHtml : list){
+//            System.out.println(bookIrbisHtml);
+//        }
+
+        IrbisClient64 irbisClient64 = new IrbisClient64("library.nlu.edu.ua", 6666, "library" , "55555", "IBIS");
+        try {
+            irbisClient64.connect();
+            String code = "T=КОДЕКС$";
+            byte ptext[] = code.getBytes();
+            String value = new String(ptext, "windows-1251");
+            List<Integer> searchRes = irbisClient64.search(value);
+            System.out.println(searchRes);
+            System.out.println(irbisClient64.readFormatedRecord(1, "@BRIEFP"));
+        } catch (IrbisClient64Exception e) {
+            e.printStackTrace();
+        } finally {
+            irbisClient64.disconnect();
         }
 
 

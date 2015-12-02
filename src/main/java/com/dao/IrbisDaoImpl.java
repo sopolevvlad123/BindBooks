@@ -7,6 +7,7 @@ import com.irbis.IrbisRecord64;
 import com.service.IrbisClientFactory;
 import com.service.IrbisRecordService;
 import com.service.IrbisService;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,10 @@ import java.util.List;
 /**
  * Created by pc8 on 18.11.15.
  */
+@Service
 public class IrbisDaoImpl implements IrbisDao {
+    public IrbisDaoImpl() {
+    }
 
     //Add autowired
     private IrbisService irbisService = new IrbisService();
@@ -98,13 +102,16 @@ public class IrbisDaoImpl implements IrbisDao {
     public List<BookIrbisHtml> find(String find) {
 
         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
+        System.out.println("rbisClientFactory.getIrbisClient()----"+irbisClient64);
         List<BookIrbisHtml> resultList = new ArrayList<>();
+
         BookIrbisHtml bookIrbisHtml;
         String html;
 
         try {
             irbisClient64.connect();
             List<Integer> searchRes = irbisClient64.search("T=" + find + "$");
+            System.out.println(" List<Integer> searchRes----"+searchRes);
             for (Integer mfn : searchRes) {
                 html = irbisClient64.readFormatedRecord(mfn, "@INFOW_H");
                 html = irbisService.filterAnswer(html);
