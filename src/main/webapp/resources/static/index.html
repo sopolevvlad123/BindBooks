@@ -15,8 +15,13 @@
     <link href="static/css/slider-style.css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
+<<<<<<< HEAD
 <body ng-app="myApp" >
 <div class = "container-fluid all"  ng-controller="MainController" data-ng-init="init()"   >
+=======
+<body>
+<div class="container-fluid all">
+>>>>>>> c126ed1672240afbacd4411f791d9127016eea4f
     <header>
         <div class="row-fluid topHeader">
             <div class="col-md-12">
@@ -24,6 +29,7 @@
             </div>
         </div>
     </header>
+<<<<<<< HEAD
     <div class="row bace" >
         <div class="col-md-6 contentWrapper" >
             <div class="col-md-11.9 postgrace " >
@@ -41,6 +47,27 @@
                         <img ng-repeat="photo in photos" class="slide " ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
                         <a class="arrow prev" href="#" ng-click="showPrev()"></a>
                         <a class="arrow next" href="#" ng-click="showNext()"></a>
+=======
+    <div class="row bace">
+        <div class="col-md-6 contentWrapper">
+            <div class="col-md-11.9 postgrace ">
+                <div class="col-md-12 postbookInfo fitter">
+                    <b> Вид документа</b> : Однотомное издание<br>
+                    <b> Шифр издания</b> : Х628.332/Л 55 <br>
+                    <b> Автор(ы)</b> : Лившиц Е.<br>
+                    <b> Заглавие</b> : Социальные корни беспризорности.<br>
+                </div>
+
+                <div class="col-md-12 postView fitter">
+                    <div ng-controller="CarouselDemoCtrl">
+                        <div>
+                            <uib-carousel interval="myInterval" no-wrap="noWrapSlides">
+                                <uib-slide ng-repeat="slide in slides" active="slide.active">
+                                    <img ng-src="{{slide.image}}">
+                                </uib-slide>
+                            </uib-carousel>
+                        </div>
+>>>>>>> c126ed1672240afbacd4411f791d9127016eea4f
                     </div>
 
                 </div>
@@ -55,14 +82,24 @@
 
         </div>
 
+<<<<<<< HEAD
         <div class="col-md-6 contentWrapper"  ng-controller="SearchCtrl">
             <div class="col-md-12 irbis " >
+=======
+        <div class="col-md-6 contentWrapper">
+            <div class="col-md-12 irbis ">
+>>>>>>> c126ed1672240afbacd4411f791d9127016eea4f
                 <div class="col-md-9 col-md-offset-3 col-sd-offset-3  searchForm">
                     <form class="navbar-form " role="search" ng-submit="search()">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search" ng-model = "keyword">
                         </div>
+<<<<<<< HEAD
                         <button  type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+=======
+                        <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
+                        </button>
+>>>>>>> c126ed1672240afbacd4411f791d9127016eea4f
                     </form>
                 </div>
 
@@ -70,6 +107,7 @@
                     <p>{{arrIrbis.length}}</p>
                 </div>
                 <div class="col-md-12 irbisbookInfo fitter">
+<<<<<<< HEAD
                         <b>  {{arrIrbis[indexIrbis].mfn}} </b><br>
                      <img ng-if = "proccesing"  ng-src="static/processing.gif" >
 
@@ -78,14 +116,29 @@
                            <section ng-bind-html="arrIrbis[indexIrbis].html"></section>
                        </div>
 
+=======
+                    <b> Вид документа</b> : Однотомное издание<br>
+                    <b> Шифр издания</b> : Х628.332/Л 55 <br>
+                    <b> Автор(ы)</b> : Лившиц Е.<br>
+                    <b> Заглавие</b> : Социальные корни беспризорности.<br>
+                    <b> Выходные данные</b> : Москва: Б. и., 1925<br>
+                    <b> Колич.характеристики</b> :206 с<br> <b> Цена </b> : Б.ц.<br>
+                    <b> ББК</b> : Х628.332<br> <b> Ключевые слова
+                </b> (''Своб.индексиров.''): беспризорность
+>>>>>>> c126ed1672240afbacd4411f791d9127016eea4f
                 </div>
                 <div class="col-md-12   irbisbookRewind" >
                     <button ng-click="prevIrbis()"  type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
                     <button ng-click="nextIrbis()" type="button" class="btnStyle btn " id="nextBook">NEXT BOOK</button>
                 </div>
 
+<<<<<<< HEAD
                 <div class = " col-md-12 col-md-offset-5 bindButton" ng-controller="bindCtrl">
                     <button ng-click="bind()" type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
+=======
+                <div class=" col-md-12 col-md-offset-5 bindButton">
+                    <button type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
+>>>>>>> c126ed1672240afbacd4411f791d9127016eea4f
                 </div>
             </div>
 
@@ -93,6 +146,7 @@
         <footer class="footer-fluid">
             <p>footer</p>
         </footer>
+<
         </div>
     </div>
 
