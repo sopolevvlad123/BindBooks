@@ -34,7 +34,7 @@ public class MainTest {
 //            downloadService.download();
 //        }
 
-        IrbisDaoImpl irbisDao = new IrbisDaoImpl();
+           IrbisDaoImpl irbisDao = new IrbisDaoImpl();
            BookIrbis bookIrbis = irbisDao.getBookIrbis(1);
         System.out.println(bookIrbis);
 //        IrbisDaoImpl irbisDao = new IrbisDaoImpl();
