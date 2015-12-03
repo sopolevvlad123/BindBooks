@@ -153,20 +153,24 @@ app.controller('SearchCtrl', ['$scope', '$http', '$sce', function ($scope, $http
 app.controller('BindCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.bind = function () {
+        if (typeof $scope.arrIrbis !== 'undefined') {
 
-        console.log("bind, bookId =  " + $scope.book.bookId + "and mfn = " + $scope.arrIrbis[$scope.indexIrbis].mfn);
-        $http.get('http://10.251.0.10:8080/bindBook', {
-            params: {
-                bookId: $scope.book.bookId,
-                mfn: $scope.arrIrbis[$scope.indexIrbis].mfn
-            }
-        }).success(function (data) {
+            console.log("bind, bookId =  " + $scope.book.bookId + "and mfn = " + $scope.arrIrbis[$scope.indexIrbis].mfn);
+            //$http.get('http://10.251.0.10:8080/bindBook', {
+            $http.get('http://#', {
+                params: {
+                    bookId: $scope.book.bookId,
+                    mfn: $scope.arrIrbis[$scope.indexIrbis].mfn
+                }
+            }).success(function (data) {
 
+            }).error(function (err) {
+                    return err;
+                });
+        } else {
+            alert("Найдите книгу которую нужно связать");
+        }
 
-        })
-            .error(function (err) {
-                return err;
-            });
     }
 
 }]);
