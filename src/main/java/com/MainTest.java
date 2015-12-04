@@ -16,7 +16,7 @@ import java.util.List;
 public class MainTest {
 
 
-    public static void main(String[] args) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
+   /* public static void main(String[] args) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
 //        MainTest mainTest = new MainTest();
 //        FtpClientAdapter ftpClientAdapter = new FtpClientAdapter("convertbookuser", "ktnf.obqntktdbpjh");
 //
@@ -61,6 +61,6 @@ public class MainTest {
 
 //        FileService fileService = new FileService();
 //        fileService.deleteAllFiles();
-
+*/
     }
-}
+

@@ -77,8 +77,10 @@
         <dependency>
             <groupId>it.sauronsoftware</groupId>
             <artifactId>ftp4j</artifactId>
-            <version>1.6</version>
+            <version>1.7.2</version>
         </dependency>
+
+
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -96,8 +98,13 @@
     </dependencies>
 
 
+    <repositories>
+        <repository>
+            <id>sauronsoftware-github</id>
+            <url>https://github.com/Takuto88/sauronsoftware-maven/blob/master/releases/it/sauronsoftware/ftp4j/1.7.2/ftp4j-1.7.2.jar</url>
 
-
+        </repository>
+    </repositories>
 
 
 
