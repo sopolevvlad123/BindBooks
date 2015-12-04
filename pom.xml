@@ -80,6 +80,12 @@
             <version>1.6</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>it.sauronsoftware</groupId>-->
+            <!--<artifactId>ftp4j</artifactId>-->
+            <!--<version>1.7.2</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -96,14 +102,35 @@
     </dependencies>
 
 
+    <repositories>
+        <repository>
+            <id>pseudoRemoteRepo</id>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <url>file:///home/pc8/sadfsdfa/lib/</url>
+        </repository>
+    </repositories>
 
 
-
-
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>pseudoRemoteRepo</id>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+                <!--<checksumPolicy>ignore</checksumPolicy>-->
+            <!--</releases>-->
+            <!--<url>https://github.com/Takuto88/sauronsoftware-maven/blob/master/releases/</url>-->
+        <!--</repository>-->
+    <!--</repositories>-->
 
 
 
     <build>
+
+
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

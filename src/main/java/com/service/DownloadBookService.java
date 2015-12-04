@@ -28,11 +28,14 @@ public class DownloadBookService {
     private static final String FOLDER_TEN = "10";
     private static final String FOLDER_TWENTY = "20";
     private static final String FOLDER_THIRTY = "30";
+    private static final int DEFAULT_CUR_PAGE = 1;
+    private static final int DEFAULT_PAGE_RANGE = 10;
 
-    private int pageRange = 10;
+
+    private int pageRange = DEFAULT_PAGE_RANGE;
     FtpClientAdapter ftpClientAdapter = null;
     private String bookId;
-    private int currentPage = 1;
+    private int currentPage = DEFAULT_CUR_PAGE;
     private int countPage;
 
     public DownloadBookService(String bookId) {
@@ -54,12 +57,12 @@ public class DownloadBookService {
 //           ftpClientAdapter.setLocalpath(DIRECTORY);
 //!!!!ЗАМЕНИ ИП И ПУТЬ !!!!!!!!!
         ftpClientAdapter.connect("77.244.44.21");
-        File bookDir = new File("/home/pc9/TEST/" + bookId);
+        File bookDir = new File("/home/pc8/path/to/tomcat/webapps/ROOT/resources/static/" + bookId);
         if (!bookDir.exists()) {
             bookDir.mkdir();
         }
 
-        ftpClientAdapter.setLocalpath("/home/pc9/TEST/" + bookId);
+        ftpClientAdapter.setLocalpath("/home/pc8/path/to/tomcat/webapps/ROOT/resources/static/" + bookId);
 
         changeDirToCoreState(bookId);
         ftpClientAdapter.changeDirectory(bookId);
@@ -78,12 +81,13 @@ public class DownloadBookService {
         ftpClientAdapter.disconnect();
     }
 
-
-
-
-
-
-
+    /**
+     *
+     * @param bookId
+     */
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
 
     private void checkPageRange() {
         if (currentPage > countPage) {

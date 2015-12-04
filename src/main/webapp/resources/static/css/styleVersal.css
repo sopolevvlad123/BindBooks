@@ -1,24 +1,21 @@
 html,body{
     min-height: 100%;
     height: 100%;
+    overflow: auto;
 }
 .test{
     height: 600px !important;
     width: 350px !important;
-}
-div{
-    overflow: hidden !important;
 }
 h2{
     text-align: center;
     font-family: Roboto;
 }
 img{
-    height: 500px !important;
-    width: 250px !important;
+    height: 100% !important;
+    width: 100% !important;
 }
 .all{
-    min-height: 100%;
     width: 100%;
     height: 100%;
 }
@@ -38,7 +35,7 @@ img{
     border: 2px;
     border-radius: 10px;
     width: 96%;
-    margin-left: 2%;
+    margin-left: 1%;
     box-shadow:1px 1px 4px #698B69;
 }
 
@@ -71,7 +68,7 @@ img{
 
 }
 .postbookInfo{
-    width: 98%;
+    width: 96% !important;
     margin-top: 5px;
     background-color: #FAF0E6;
     border-radius: 5px;
@@ -82,7 +79,8 @@ img{
     margin-top: 5px;
     background-color: #FAF0E6;
     border-radius: 5px;
-    height: 190px;
+    height: 60%;
+    overflow: auto;
 }
 
 .postView{
@@ -99,22 +97,14 @@ img{
     position: relative;
     margin-top: 5%;
 }
-#prevPage{
-    margin-left: 50px;
-    float: left;
-}
-#nextPage{
-    margin-right: 50px;
-    float: right;
-}
 
-#prevBook{
+.prevBook{
     box-sizing: border-box;
     margin-left: 70px;
     float: left;
     width: 25%;
 }
-#nextBook{
+.nextBook{
     margin-right: 70px;
     float: right;
     width: 25%;
@@ -130,16 +120,22 @@ img{
     margin-top: 7px;
 }
 .searchForm{
-
 }
 .searchResult{
     width: 98%;
     margin-top: 5px;
     background-color: #FAF0E6;
     border-radius: 5px;
-
 }
-
+.bindGroup{
+    margin-top: 20%;
+}
+#bindButton{
+    background-color: #c91241;
+}
+#rejectButton{
+    background-color: #fbd977;
+}
 
 
 

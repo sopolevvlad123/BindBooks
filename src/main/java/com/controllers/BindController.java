@@ -51,7 +51,7 @@ public class BindController {
 
         bookDao.updateBook(bookId, bookIrbis);
         System.out.println("irbisbook" + bookIrbis);
-        //irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
+        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
     }
 
     @ResponseBody

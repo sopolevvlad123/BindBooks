@@ -37,10 +37,12 @@ public class IrbisService {
     }
 
     public List<BookIrbisHtml> getSearchResBookHtml(String searchExpr) throws UnsupportedEncodingException {
-
+        System.out.println(searchExpr + "!!!UTF");
         String expr =  exprEncoding(searchExpr);
-
+        System.out.println(expr + "!!!!!!! ANCII");
         List<BookIrbisHtml> bookIrbisHtmlList =  irbisDao.find(expr);
+
+
 
         return bookIrbisHtmlList;
     }
