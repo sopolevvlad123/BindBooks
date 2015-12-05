@@ -96,6 +96,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
             tx = closeableSession.getSession().beginTransaction();
             book = (Book) closeableSession.getSession().load(Book.class, bookId);
+            book.setMfn(bookIrbis.getMfn());
             book.setEname(bookIrbis.getName());
             book.setPartName(bookIrbis.getPartName());
             book.setAuthor(bookIrbis.getAuthors());

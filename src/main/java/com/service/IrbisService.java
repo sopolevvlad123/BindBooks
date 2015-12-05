@@ -36,10 +36,23 @@ public class IrbisService {
         return answer;
     }
 
+    public List<String> filterListAnswer(List<String> answerList){
+
+        List<String> resultList = new ArrayList<>();
+         for (String str : answerList) {
+             if (str.contains("IRBIS_BINARY_DATA")) {
+                 break;
+             }
+              resultList.add(str);
+         }
+
+        return resultList;
+    }
+
     public List<BookIrbisHtml> getSearchResBookHtml(String searchExpr) throws UnsupportedEncodingException {
-        System.out.println(searchExpr + "!!!UTF");
+
         String expr =  exprEncoding(searchExpr);
-        System.out.println(expr + "!!!!!!! ANCII");
+
         List<BookIrbisHtml> bookIrbisHtmlList =  irbisDao.find(expr);
 
 

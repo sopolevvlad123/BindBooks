@@ -38,11 +38,13 @@ public class IrbisDaoImpl implements IrbisDao {
 //        IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
 //         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
         //Test version
+        System.out.println("5) IrbisDao setUrl url: " + url + "  mfn: " + mfn );
         StringBuilder stringBuider = new StringBuilder();
         stringBuider.append("951#^B1^I");
         stringBuider.append(url);
-        stringBuider.append("^TПолный текст");
-        IrbisClient64 irbisClient64 = new IrbisClient64("library.nlu.edu.ua", 6666, "library", "55555", "IBIS");
+        stringBuider.append("^T.");
+      //  IrbisClient64 irbisClient64 = new IrbisClient64("library.nlu.edu.ua", 6666, "library", "55555", "IBIS");
+        IrbisClient64 irbisClient64 = new IrbisClient64("10.251.0.19", 6666, "master" , "MASTERKEY", "IBIS");
         try {
             irbisClient64.connect();
             List<String> list = irbisClient64.readRecordAnswer(mfn, false);
@@ -103,7 +105,7 @@ public class IrbisDaoImpl implements IrbisDao {
     public List<BookIrbisHtml> find(String find) {
 
         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
-        System.out.println("rbisClientFactory.getIrbisClient()----"+irbisClient64);
+
         List<BookIrbisHtml> resultList = new ArrayList<>();
 
         BookIrbisHtml bookIrbisHtml;
@@ -112,7 +114,7 @@ public class IrbisDaoImpl implements IrbisDao {
         try {
             irbisClient64.connect();
             List<Integer> searchRes = irbisClient64.search("T=" + find + "$");
-            System.out.println(" List<Integer> searchRes----"+searchRes);
+
             for (Integer mfn : searchRes) {
                 html = irbisClient64.readFormatedRecord(mfn, "@INFOW_H");
                 html = irbisService.filterAnswer(html);
