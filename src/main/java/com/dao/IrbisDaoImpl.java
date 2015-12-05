@@ -34,22 +34,15 @@ public class IrbisDaoImpl implements IrbisDao {
      */
     @Override
     public void setUrl(String url, int mfn) {
-        //Normal version
-//        IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
-//         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
+      //  Normal version
+        IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
+         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
         //Test version
-        System.out.println("5) IrbisDao setUrl url: " + url + "  mfn: " + mfn );
-        StringBuilder stringBuider = new StringBuilder();
-        stringBuider.append("951#^B1^I");
-        stringBuider.append(url);
-        stringBuider.append("^T.");
-      //  IrbisClient64 irbisClient64 = new IrbisClient64("library.nlu.edu.ua", 6666, "library", "55555", "IBIS");
-        IrbisClient64 irbisClient64 = new IrbisClient64("10.251.0.19", 6666, "master" , "MASTERKEY", "IBIS");
+      //  IrbisClient64 irbisClient64 = new IrbisClient64("10.251.0.19", 6666, "master" , "MASTERKEY", "IBIS");
         try {
             irbisClient64.connect();
-            List<String> list = irbisClient64.readRecordAnswer(mfn, false);
-            list.add(stringBuider.toString());
-            IrbisRecord64 irbisRecord64 = IrbisRecord64.parse(list, 1);
+            IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);
+            irbisRecord64.addField("951", "^B1^I" +  url + "^T.");
             irbisClient64.writeRecord(irbisRecord64, false, false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +68,6 @@ public class IrbisDaoImpl implements IrbisDao {
         BookIrbis bookIrbis = null;
         try {
             irbisClient64.connect();
-            System.out.println("mfn  getBookIrbis -----  "+mfn);
             IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);
             bookIrbis = irbisRecordService.convert(irbisRecord64, irbisClient64);
             String resultData = irbisClient64.readFormatedRecord(mfn, "@BRIEFP");

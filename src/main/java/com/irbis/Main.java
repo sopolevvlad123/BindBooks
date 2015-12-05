@@ -13,8 +13,8 @@ import java.util.List;
  */
 public class Main {
     public static void main(String... args) {
-     //   IrbisClient64 irbisClient64 = new IrbisClient64("library.nlu.edu.ua", 6666, "library" , "55555", "IBIS");
-        IrbisClient64 irbisClient64 = new IrbisClient64("10.251.0.19", 6666, "master" , "MASTERKEY", "IBIS");
+        IrbisClient64 irbisClient64 = new IrbisClient64("library.nlu.edu.ua", 6666, "library" , "55555", "IBIS");
+     //   IrbisClient64 irbisClient64 = new IrbisClient64("10.251.0.19", 6666, "master" , "MASTERKEY", "IBIS");
      //   IrbisClient64 irbisClient64 = new IrbisClient64(); ;
 
         try {
@@ -24,9 +24,12 @@ public class Main {
 //       тут я забираю данные в анси
          //   List<String> list  = irbisClient64.readRecordAnswer(11,false);
            // а тут в ютф
-           IrbisRecord64 irbisRecord64  = irbisClient64.readRecord(12, false);
+           IrbisRecord64 irbisRecord64  = irbisClient64.readRecord(461069, false);
 
+       //    System.out.println("version : " + irbisClient64.getServerVersion());
             System.out.println(irbisRecord64 + "//");
+//            irbisRecord64.addField("951","http://oldlib.nlu.edu.ua/index.php?r=preview%2Findex&book_id=0");
+//           System.out.println(irbisRecord64 + "//");
 
      //    TESTED
 //            List<Integer> searchRes = irbisClient64.search("T=Уголовный$");
@@ -44,27 +47,7 @@ public class Main {
 //            resultData = irbisClient64.readFormatedRecord(searchRes.get(0), "@ATHRAW");
 //            System.out.println(resultData);
 
-//               IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(447, false);
-//
-//               IrbisRecordService irbisRecordService = new IrbisRecordService();
-//               BookIrbis bookIrbis =  irbisRecordService.convert(irbisRecord64);
-//               System.out.println(bookIrbis.getName());
-//               System.out.println(bookIrbis.getAuthors());
-//               System.out.println(bookIrbis.getPublishinCity());
-//               System.out.println(bookIrbis.getPublishingYear());
-//               System.out.println(bookIrbis.getKeyWords());
-//
-//               BookIrbis bookIrbis = new IrbisDaoImpl().getBookIrbis(11996);
-//               System.out.println("1: " + bookIrbis.getName());
-//               System.out.println("2: " + bookIrbis.getAuthors());
-//               System.out.println("3: " + bookIrbis.getPublishinOffice());
-//               System.out.println("4: " + bookIrbis.getPublishinCity());
-//               System.out.println("5: " + bookIrbis.getPublishingYear());
-//               System.out.println("6: " + bookIrbis.getLibDescription());
-//               System.out.println("7: " + bookIrbis.getKeyWords());
-//               System.out.println("8: " + bookIrbis.getPartName());
-//               System.out.println("9: " + bookIrbis.getIndexBbk());
-//               System.out.println("10: " + bookIrbis.getCountPage());
+
 
 
           //    System.out.println(list.get(6).getTag());
@@ -95,10 +78,11 @@ public class Main {
 //            for (int i = 0; i < list.size(); i++){
 //               if(list.get(i).startsWith("951#") ){
 //                    list.remove(i);
-//                }
+//                }git
 //
 //            }
 
+//            irbisRecord64.addField("200", "^AО минувшем");
 //            String str = "200#^AО минувшем";
 //            byte text[] = str.getBytes();
 //            String result = new String(text, "windows-1251");
@@ -107,8 +91,11 @@ public class Main {
         //   list.add("907#^CКТ^A20110531^B111");
 
             //тут я пишу юрл в их базу
-            IrbisDao irbisDao = new IrbisDaoImpl();
-            irbisDao.setUrl(new UrlSevice().getUrl(0), 9);
+//            IrbisDao irbisDao = new IrbisDaoImpl();
+//            irbisDao.setUrl(new UrlSevice().getUrl(0), 18);
+
+         //   irbisDao.setUrl(new UrlSevice().getUrl(0), 15);
+
 
 //            IrbisRecord64 irbisRecord64 = IrbisRecord64.parse(list,1);
 //            irbisClient64.writeRecord(irbisRecord64, false, false);
@@ -121,9 +108,7 @@ public class Main {
 
        //     IrbisRecord64 irbisRecord64 = IrbisRecord64.parse(list, 1);
          //   irbisRecord64 = IrbisRecord64.parse(list, 1);
-        //    irbisClient64.writeRecord(irbisRecord64, false, false);
-
-
+            irbisClient64.writeRecord(irbisRecord64, false, false);
 
 
                     } catch (Exception e) {

@@ -43,21 +43,17 @@ public class BindController {
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
 
-//        BookDao bookDao = daoService.getBookDao();
-//        System.out.println("1) Controller mfn"+ mfn  );
-//        System.out.println("2) Controller bookId"+ bookId  );
+        BookDao bookDao = daoService.getBookDao();
+        System.out.println("1) Controller mfn"+ mfn  );
+        System.out.println("2) Controller bookId"+ bookId  );
        IrbisDao irbisDao = daoService.getIrbisDao();
-//        BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
-//        System.out.println("3) bookIrbis : "  + bookIrbis);
+        BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
+        System.out.println("3) bookIrbis : "  + bookIrbis);
 
-      //  bookDao.updateBook(bookId, bookIrbis);
-    //    System.out.println("4) irbisbook" + bookIrbis);
+        bookDao.updateBook(bookId, bookIrbis);
+        System.out.println("4) irbisbook" + bookIrbis);
 
-        byte text[] = urlSevice.getUrl(bookId).getBytes();
-        String result = new String(text, "windows-1251");
-
-
-        irbisDao.setUrl(result, mfn);
+        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
     }
 
     @ResponseBody

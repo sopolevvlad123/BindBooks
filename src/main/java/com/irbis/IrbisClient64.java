@@ -730,6 +730,7 @@ public class IrbisClient64 {
 
         sv.version = answer.get(1);
     try {
+
         sv.activeClientsCount = Integer.parseInt(answer.get(2));
     } catch ( NumberFormatException e){
         System.out.println(answer.get(2));
@@ -774,7 +775,7 @@ public class IrbisClient64 {
 
         userData.append(buf);
 
-        List<String> answer = executeCommand(SERVER_COMMAND_WRITE_RECORD, userData.toString(), ENCODING_ANSI, ENCODING_ANSI);
+        List<String> answer = executeCommand(SERVER_COMMAND_WRITE_RECORD, userData.toString(), ENCODING_UTF8, ENCODING_UTF8);
 
         // ??????? ?????? - ??? ???????????? ??? ? ??. ??? ????? ?????? ???????????????.
         String s = answer.get(1);
