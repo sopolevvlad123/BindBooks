@@ -31,9 +31,14 @@ public class JsonController {
     private BookService bookService;
     @Autowired
     private JsonWrappingServise jsonWrappingServise;
+
+    private List<Book> bookList = null;
+    private DownloadBookService downloadBookService;
+
+
     @PostConstruct
     public void init() {
-        System.out.println("Hello ");
+
         this.bookList = bookService.getAllBooks();
     }
     @ModelAttribute
@@ -41,8 +46,7 @@ public class JsonController {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
-    List<Book> bookList = null;
-    private DownloadBookService downloadBookService;
+
 
     @ResponseBody
     @RequestMapping(value = "/book", produces={"application/json; charset=UTF-8"})

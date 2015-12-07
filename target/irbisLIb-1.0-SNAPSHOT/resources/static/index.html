@@ -13,19 +13,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
     <script src="http://www.strictly-software.com/scripts/downloads/encoder.js"></script>
     <script src="https://code.angularjs.org/1.2.20/angular-sanitize.min.js"></script>
-    <script src="static/js/example.js"></script>
+
+    
     <link href="static/css/styleVersal.css" rel="stylesheet" media="screen">
     <link href="static/css/slider-style.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    
+    <link href="css/styleVersal.css" rel="stylesheet" media="screen">
+    <link href="css/slider-style.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 
 <body ng-app="myApp" >
-<div class = "container-fluid all"  ng-controller="MainController" data-ng-init="init()"   >
+<div class = "container-fluid all"  ng-controller="MainController" data-ng-init="init()">
 
     <header>
-        <div class="row-fluid topHeader">
+        <div class="row topHeader">
             <div class="col-md-12">
-                <h2 font-color="white">STATIC</h2>
+                <img  class="logo" src="http://nlu.edu.ua/wp-content/themes/jur-akademy-2/img/logo.png">
+                <h2>STATIC</h2>
             </div>
         </div>
     </header>
@@ -33,16 +39,16 @@
     <div class="row bace" >
         <div class="col-md-6 contentWrapper" >
             <div class="col-md-11.9 postgrace " >
-                <div class="col-md-12 postbookInfo fitter"   >
+                <div class="col-md-12 postbookInfo fitter">
                     <b> Автор: </b> {{book.author}} <br>
                     <b>Название:</b> {{ book.name}}   <br>
                     <b> Год:</b>  {{book.year}}  <br>
                     <b> Index</b>   {{ index.value}} <br>
                 </div>
-                <div class="col-md-12 postView fitter"  ng-controller="CarouselCtrl"  data-ng-init="initImage()" >
+                <div class="col-md-8 col-md-offset-2  postView fitter"  >
 
-                    <div class="container slider test" >
-                        <img ng-repeat="photo in photos" class="slide " ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
+                    <div class="col-md-12 slider" >
+                        <img ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()" ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}" />
                         <a class="arrow prev" href="#" ng-click="showPrev()"></a>
                         <a class="arrow next" href="#" ng-click="showNext()"></a>
                     </div>
@@ -50,8 +56,8 @@
                 </div>
 
                 <div class="col-md-12  jpgRewind">
-                    <button ng-if="index.value != 0" ng-click="decrement()" type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
-                    <button ng-click="func()" type="button" class="btnStyle btn" id="nextBook" >NEXT BOOK</button>
+                    <button ng-if="index.value != 0" ng-click="decrement()" type="button" class="btnStyle btn prevBook">ПРЕД КНИГА</button>
+                    <button ng-click="next()" type="button" class="btnStyle btn nextBook">СЛЕД КНИГА</button>
                 </div>
             </div>
 
@@ -86,25 +92,18 @@
 
                 </div>
                 <div class="col-md-12   irbisbookRewind" >
-                    <button ng-click="prevIrbis()"  type="button" class="btnStyle btn" id="prevBook">PREV BOOK</button>
-                    <button ng-click="nextIrbis()" type="button" class="btnStyle btn " id="nextBook">NEXT BOOK</button>
+                    <button ng-click="prevIrbis()"  type="button" class="btnStyle btn prevBook">ПРЕД КНИГА</button>
+                    <button ng-click="nextIrbis()" type="button" class="btnStyle btn nextBook">СЛЕД КНИГА</button>
                 </div>
 
 
-                <div class = " col-md-12 col-md-offset-5 bindButton" ng-controller="BindCtrl">
-                    <button ng-click="bind()" type="button" class="btnStyle btn btn-lg  btnStyle ">Связать</button>
-
+                <div class = " col-md-12 bindGroup" ng-controller="BindCtrl">
+                    <button ng-click="bind()" type="button" class="btnStyle btn btn-lg  btnStyle prevBook" id="bindButton">СВЯЗАТЬ</button>
+                    <button git git type="button" class="btnStyle btn btn-lg  btnStyle nextBook" id="rejectButton">НЕТ КНИГИ</button>
                 </div>
-                <div class = " col-md-12 col-md-offset-3 bindButton">
-                    <button  type="button" class="btnStyle btn btn-lg  btnStyle ">нет книги</button>
-
-                </div>
-            </div>
+              </div>
 
         </div>
-        <footer class="footer-fluid">
-            <p>footer</p>
-        </footer>
 
     </div>
 </div>

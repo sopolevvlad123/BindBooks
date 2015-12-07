@@ -74,12 +74,12 @@
             <version>3.3</version>
         </dependency>
 
+
         <dependency>
             <groupId>it.sauronsoftware</groupId>
             <artifactId>ftp4j</artifactId>
-            <version>1.7.2</version>
+            <version>1.6</version>
         </dependency>
-
 
 
         <dependency>
@@ -100,17 +100,36 @@
 
     <repositories>
         <repository>
-            <id>sauronsoftware-github</id>
-            <url>https://github.com/Takuto88/sauronsoftware-maven/blob/master/releases/it/sauronsoftware/ftp4j/1.7.2/ftp4j-1.7.2.jar</url>
 
+            <id>pseudoRemoteRepo</id>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+
+            <url>file:///home/pc9/WORK/Irbis/IrbisPostgreBindingService/lib/</url>
         </repository>
     </repositories>
 
+
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>pseudoRemoteRepo</id>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+                <!--<checksumPolicy>ignore</checksumPolicy>-->
+            <!--</releases>-->
+            <!--<url>https://github.com/Takuto88/sauronsoftware-maven/blob/master/releases/</url>-->
+        <!--</repository>-->
+    <!--</repositories>-->
 
 
 
 
     <build>
+
+
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
