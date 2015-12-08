@@ -34,20 +34,15 @@ public class IrbisDaoImpl implements IrbisDao {
      */
     @Override
     public void setUrl(String url, int mfn) {
-        //Normal version
-//        IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
-//         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
+      //  Normal version
+        IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
+         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
         //Test version
-        StringBuilder stringBuider = new StringBuilder();
-        stringBuider.append("951#^B1^I");
-        stringBuider.append(url);
-        stringBuider.append("^TПолный текст");
-        IrbisClient64 irbisClient64 = new IrbisClient64("library.nlu.edu.ua", 6666, "library", "55555", "IBIS");
+      //  IrbisClient64 irbisClient64 = new IrbisClient64("10.251.0.19", 6666, "master" , "MASTERKEY", "IBIS");
         try {
             irbisClient64.connect();
-            List<String> list = irbisClient64.readRecordAnswer(mfn, false);
-            list.add(stringBuider.toString());
-            IrbisRecord64 irbisRecord64 = IrbisRecord64.parse(list, 1);
+            IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);
+            irbisRecord64.addField("951", "^B1^I" +  url + "^T.");
             irbisClient64.writeRecord(irbisRecord64, false, false);
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,7 +68,6 @@ public class IrbisDaoImpl implements IrbisDao {
         BookIrbis bookIrbis = null;
         try {
             irbisClient64.connect();
-            System.out.println("mfn  getBookIrbis -----  "+mfn);
             IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);
             bookIrbis = irbisRecordService.convert(irbisRecord64, irbisClient64);
             String resultData = irbisClient64.readFormatedRecord(mfn, "@BRIEFP");
@@ -103,7 +97,7 @@ public class IrbisDaoImpl implements IrbisDao {
     public List<BookIrbisHtml> find(String find) {
 
         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
-        System.out.println("rbisClientFactory.getIrbisClient()----"+irbisClient64);
+
         List<BookIrbisHtml> resultList = new ArrayList<>();
 
         BookIrbisHtml bookIrbisHtml;
@@ -112,7 +106,7 @@ public class IrbisDaoImpl implements IrbisDao {
         try {
             irbisClient64.connect();
             List<Integer> searchRes = irbisClient64.search("T=" + find + "$");
-            System.out.println(" List<Integer> searchRes----"+searchRes);
+
             for (Integer mfn : searchRes) {
                 html = irbisClient64.readFormatedRecord(mfn, "@INFOW_H");
                 html = irbisService.filterAnswer(html);
