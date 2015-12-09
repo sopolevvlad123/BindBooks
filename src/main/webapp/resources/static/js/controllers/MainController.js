@@ -15,7 +15,8 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
         value: 0
     };
     $scope.getDesc = function () {
-        $http.get('http://10.251.0.21:8080/book', {params: {bookIndex: $scope.index.value}})
+        $http.get('http://localhost:8080/book', {params: {bookIndex: $scope.index.value}})
+            //10.251.0.21
             .success(function (data) {
                 $scope.book = data;
                 $scope.photos = [];
@@ -58,7 +59,8 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
     $scope.addImage = function () {
         for (var i = 0; i < 10; i++) {
             $scope.photos.push({
-                src: 'http://10.251.0.21:8080/static/'+ $scope.book.bookId  +'/'
+                src: 'http://localhost:8080/static/'+ $scope.book.bookId  +'/'
+                    //10.251.0.21
                 + ($scope._Index + 1 + i) + '.jpg'
             });
         }
@@ -104,7 +106,8 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
         $scope._Index = index;
     };
     $scope.download = function () {
-        $http.get('http://10.251.0.21:8080/download')
+        $http.get('http://localhost:8080/download')
+        //10.251.0.21
             .success(function (data) {
                     })
             .error(function (err) {
@@ -130,7 +133,8 @@ app.controller('SearchCtrl', ['$scope', '$http', '$sce', function ($scope, $http
 
     $scope.getIrbisDesc = function () {
         $scope.proccesing = true;
-        $http.get('http://10.251.0.21:8080/search', {params: {searchExpr: $scope.keyword}})
+        $http.get('http://localhost:8080/search', {params: {searchExpr: $scope.keyword}})
+        //'http://10.251.0.21:8080/search'
 
             .success(function (data) {
                 alert('search');
@@ -160,8 +164,9 @@ app.controller('BindCtrl', ['$scope', '$http', function ($scope, $http) {
         if (typeof $scope.arrIrbis !== 'undefined') {
 
             console.log("bind, bookId =  " + $scope.book.bookId + "and mfn = " + $scope.arrIrbis[$scope.indexIrbis].mfn);
-            $http.get('http://10.251.0.21:8080/bindBook', {
+            $http.get('http://localhost:8080/bindBook', {
             //$http.get('http://#', {
+            // 10.251.0.21
                 params: {
                     bookId: $scope.book.bookId,
                     mfn: $scope.arrIrbis[$scope.indexIrbis].mfn
