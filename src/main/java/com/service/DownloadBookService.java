@@ -13,6 +13,7 @@ import java.util.List;
  */
 @Service
 public class DownloadBookService {
+
     public DownloadBookService() {
     }
 
@@ -33,7 +34,7 @@ public class DownloadBookService {
 
 
     private int pageRange = DEFAULT_PAGE_RANGE;
-    FtpClientAdapter ftpClientAdapter = null;
+    private FtpClientAdapter ftpClientAdapter = null;
     private String bookId;
     private int currentPage = DEFAULT_CUR_PAGE;
     private int countPage;
@@ -44,6 +45,7 @@ public class DownloadBookService {
 
     /**
      * Method downloads each time new 10 pages
+     *
      * @throws FTPException
      * @throws IOException
      * @throws FTPIllegalReplyException
@@ -53,16 +55,14 @@ public class DownloadBookService {
      */
     public void download() throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
         initFtpClientAdapter();
-//           ftpClientAdapter.connect(IP);
-//           ftpClientAdapter.setLocalpath(DIRECTORY);
-//!!!!ЗАМЕНИ ИП И ПУТЬ !!!!!!!!!
-        ftpClientAdapter.connect("77.244.44.21");
-        File bookDir = new File("/home/pc8/path/to/tomcat/webapps/ROOT/resources/static/" + bookId);
+        System.out.println(IP);
+        ftpClientAdapter.connect(IP);
+        File bookDir = new File(DIRECTORY + bookId);
         if (!bookDir.exists()) {
             bookDir.mkdir();
         }
 
-        ftpClientAdapter.setLocalpath("/home/pc8/path/to/tomcat/webapps/ROOT/resources/static/" + bookId);
+        ftpClientAdapter.setLocalpath(DIRECTORY + bookId);
 
         changeDirToCoreState(bookId);
         ftpClientAdapter.changeDirectory(bookId);
@@ -77,12 +77,12 @@ public class DownloadBookService {
         }
 
         incrementCurrentPage();
-        System.out.println("CountP="+  countPage + ", CurrentP"+ currentPage + " ,Range" + pageRange );
+        System.out.println("CountP=" + countPage + ", CurrentP" + currentPage + " ,Range" + pageRange);
         ftpClientAdapter.disconnect();
     }
 
     /**
-     *
+     * This method initializes bookId
      * @param bookId
      */
     public void setBookId(String bookId) {
@@ -94,7 +94,7 @@ public class DownloadBookService {
             pageRange = 0;
         }
         if (countPage < currentPage + pageRange) {
-            pageRange = countPage - currentPage +1;
+            pageRange = countPage - currentPage + 1;
         }
     }
 
@@ -103,8 +103,7 @@ public class DownloadBookService {
     }
 
     private void initFtpClientAdapter() {
-        // ftpClientAdapter = new FtpClientAdapter(LOGIN,PASSWORD);
-        ftpClientAdapter = new FtpClientAdapter("convertbookuser", "ktnf.obqntktdbpjh");
+        ftpClientAdapter = new FtpClientAdapter(LOGIN, PASSWORD);
     }
 
     private boolean changeDirToCoreState(String file) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
@@ -142,8 +141,9 @@ public class DownloadBookService {
                 count++;
             }
         }
-        System.out.println(count);
         countPage = count;
     }
+
+
 
 }

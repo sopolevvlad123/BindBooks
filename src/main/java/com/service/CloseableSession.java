@@ -12,8 +12,6 @@ public class CloseableSession implements AutoCloseable {
 
     private final Session session;
 
-
-
     public CloseableSession(Session session) {
         this.session = session;
     }

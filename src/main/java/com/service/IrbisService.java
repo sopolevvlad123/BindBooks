@@ -36,8 +36,12 @@ public class IrbisService {
         return answer;
     }
 
+    /**
+     * This method remove needless data from list of answer
+     * @param answerList
+     * @return
+     */
     public List<String> filterListAnswer(List<String> answerList){
-
         List<String> resultList = new ArrayList<>();
          for (String str : answerList) {
              if (str.contains("IRBIS_BINARY_DATA")) {
@@ -45,7 +49,6 @@ public class IrbisService {
              }
               resultList.add(str);
          }
-
         return resultList;
     }
 
@@ -59,12 +62,6 @@ public class IrbisService {
 
         return bookIrbisHtmlList;
     }
-
-
-
-
-
-
 
     private String exprEncoding(String expr) throws UnsupportedEncodingException {
         byte text[] = expr.getBytes();

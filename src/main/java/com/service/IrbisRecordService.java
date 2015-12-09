@@ -5,6 +5,7 @@ import com.irbis.IrbisClient64;
 import com.irbis.IrbisField64;
 import com.irbis.IrbisRecord64;
 import com.irbis.IrbisSubField64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,13 +14,12 @@ import java.util.List;
  * Created by pc8 on 19.11.15.
  */
 @Service
-
 public class IrbisRecordService {
     public IrbisRecordService() {
     }
-
-    private IrbisService irbisService = new IrbisService();
-    private IrbisClient64 irbisClient64 ;
+    @Autowired
+    private IrbisService irbisService;
+    private IrbisClient64 irbisClient64;
     private IrbisRecord64 irbisRecord64;
 
 
@@ -28,7 +28,7 @@ public class IrbisRecordService {
      *
      * @return
      */
-    public BookIrbis convert(IrbisRecord64 irbisRecord64, IrbisClient64 irbisClient64 ) {
+    public BookIrbis convert(IrbisRecord64 irbisRecord64, IrbisClient64 irbisClient64) {
         this.irbisRecord64 = irbisRecord64;
         this.irbisClient64 = irbisClient64;
         BookIrbis bookIrbis = new BookIrbis();
@@ -181,7 +181,7 @@ public class IrbisRecordService {
         return result.toString();
     }
 
-    private String getPublishinOffice(){
+    private String getPublishinOffice() {
         StringBuilder result = new StringBuilder();
         List<IrbisField64> fieldList = irbisRecord64.getFieldSet();
         IrbisSubField64 irbisSubField64;
@@ -196,7 +196,7 @@ public class IrbisRecordService {
         return result.toString();
     }
 
-    private String getPartName(){
+    private String getPartName() {
         StringBuilder result = new StringBuilder();
         List<IrbisField64> fieldList = irbisRecord64.getFieldSet();
         IrbisSubField64 irbisSubField64;
@@ -208,14 +208,14 @@ public class IrbisRecordService {
                 }
                 irbisSubField64 = irbisField64.getSubFieldList().get('I');
                 if (irbisSubField64 != null) {
-                    if (result.length() != 0 ) {
+                    if (result.length() != 0) {
                         result.append(", " + irbisSubField64.getText());
                     }
                     result.append(irbisSubField64.getText());
                 }
                 irbisSubField64 = irbisField64.getSubFieldList().get('H');
                 if (irbisSubField64 != null) {
-                    if (result.length() != 0 ) {
+                    if (result.length() != 0) {
                         result.append(", " + irbisSubField64.getText());
                     }
                     result.append(irbisSubField64.getText());
@@ -223,7 +223,7 @@ public class IrbisRecordService {
 
                 irbisSubField64 = irbisField64.getSubFieldList().get('L');
                 if (irbisSubField64 != null) {
-                    if (result.length() != 0 ) {
+                    if (result.length() != 0) {
                         result.append(", " + irbisSubField64.getText());
                     }
                     result.append(irbisSubField64.getText());
@@ -231,7 +231,7 @@ public class IrbisRecordService {
 
                 irbisSubField64 = irbisField64.getSubFieldList().get('K');
                 if (irbisSubField64 != null) {
-                    if (result.length() != 0 ) {
+                    if (result.length() != 0) {
                         result.append(", " + irbisSubField64.getText());
                     }
                     result.append(irbisSubField64.getText());
@@ -239,7 +239,7 @@ public class IrbisRecordService {
 
                 irbisSubField64 = irbisField64.getSubFieldList().get('N');
                 if (irbisSubField64 != null) {
-                    if (result.length() != 0 ) {
+                    if (result.length() != 0) {
                         result.append(", " + irbisSubField64.getText());
                     }
                     result.append(irbisSubField64.getText());
@@ -247,7 +247,7 @@ public class IrbisRecordService {
 
                 irbisSubField64 = irbisField64.getSubFieldList().get('M');
                 if (irbisSubField64 != null) {
-                    if (result.length() != 0 ) {
+                    if (result.length() != 0) {
                         result.append(", " + irbisSubField64.getText());
                     }
                     result.append(irbisSubField64.getText());
@@ -260,7 +260,7 @@ public class IrbisRecordService {
 
     }
 
-    private String getCountPage(){
+    private String getCountPage() {
         StringBuilder result = new StringBuilder();
         List<IrbisField64> fieldList = irbisRecord64.getFieldSet();
         IrbisSubField64 irbisSubField64;
@@ -293,22 +293,16 @@ public class IrbisRecordService {
         return result.toString();
     }
 
-    private String getBibDescription(){
+    private String getBibDescription() {
 
         String resultData = null;
-      try {
+        try {
+            resultData = irbisClient64.readFormatedRecord(irbisRecord64.getMfn(), "@BRIEFP");
+            resultData = irbisService.filterAnswer(resultData);
+        } catch (Exception e) {
+            e.printStackTrace();
 
-          System.out.println("getBibDescription"+irbisRecord64.getMfn());
-
-          System.out.println("irbisClient64------"+irbisClient64);
-          System.out.println("irbisRecord64------"+irbisRecord64);
-
-           resultData = irbisClient64.readFormatedRecord(irbisRecord64.getMfn(), "@BRIEFP");
-           resultData = irbisService.filterAnswer(resultData);
-      } catch ( Exception e){
-          e.printStackTrace();
-
-      }
-        return  resultData;
+        }
+        return resultData;
     }
 }

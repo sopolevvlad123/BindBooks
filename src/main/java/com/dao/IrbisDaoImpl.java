@@ -7,6 +7,8 @@ import com.irbis.IrbisRecord64;
 import com.service.IrbisClientFactory;
 import com.service.IrbisRecordService;
 import com.service.IrbisService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,16 +17,24 @@ import java.util.List;
 /**
  * Created by pc8 on 18.11.15.
  */
-@Service
+@Repository
 public class IrbisDaoImpl implements IrbisDao {
+
     public IrbisDaoImpl() {
     }
 
-    //Add autowired
-    private IrbisService irbisService = new IrbisService();
-    private IrbisRecordService irbisRecordService = new IrbisRecordService();
-    private IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
+    //Test version
+//    private IrbisService irbisService = new IrbisService();
+//    private IrbisRecordService irbisRecordService = new IrbisRecordService();
+//    private IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
 
+    //Normal version
+    @Autowired
+    private IrbisService irbisService;
+    @Autowired
+    private IrbisRecordService irbisRecordService;
+    @Autowired
+    private IrbisClientFactory irbisClientFactory;
 
     /**
      * Set url to column 951# of irbis
@@ -34,15 +44,13 @@ public class IrbisDaoImpl implements IrbisDao {
      */
     @Override
     public void setUrl(String url, int mfn) {
-      //  Normal version
-        IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
-         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
-        //Test version
-      //  IrbisClient64 irbisClient64 = new IrbisClient64("10.251.0.19", 6666, "master" , "MASTERKEY", "IBIS");
+
+        IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
+
         try {
             irbisClient64.connect();
             IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);
-            irbisRecord64.addField("951", "^B1^I" +  url + "^T.");
+            irbisRecord64.addField("951", "^B1^I" + url + "^T.");
             irbisClient64.writeRecord(irbisRecord64, false, false);
         } catch (Exception e) {
             e.printStackTrace();

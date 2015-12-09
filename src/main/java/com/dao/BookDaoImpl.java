@@ -4,18 +4,32 @@ import com.entity.Book;
 import com.entity.BookIrbis;
 import com.service.CloseableSession;
 import com.service.HibernateService;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Created by pc8 on 03.11.15.
  */
+@Repository
 public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
+    public BookDaoImpl() {
+        setSessionFactory(HibernateService.createSessionFactory());
+    }
+
+
+    /**
+     * Metod returns Book by id
+     * @param id
+     * @return
+     */
     @Override
     public Book getBookById(int id) {
 
@@ -30,7 +44,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
     }
 
     /**
-     * Method return all books without mfn
+     * Method returns all books without mfn
      * @return
      */
     @Override
@@ -38,8 +52,10 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
         List<Book> bookList = null;
 
-        try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
+       // try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
+        try (CloseableSession closeableSession = new CloseableSession(getSessionFactory().openSession())) {
             bookList = closeableSession.getSession().createCriteria(Book.class).add(Restrictions.isNull("mfn")).addOrder(Order.asc("bookId")).list();
+
         }catch (Exception e){
            e.printStackTrace();
             //NEED ADD LOGER
@@ -47,6 +63,11 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         return bookList;
     }
 
+    /**
+     * Method changes field mfn of the Book
+     * @param bookId
+     * @param mfn
+     */
     @Override
     public void updateMfn(int bookId, int mfn) {
         Book book;
@@ -65,6 +86,11 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
     }
 
+    /**
+     * Method changes field name of the Book
+     * @param bookId
+     * @param name
+     */
     @Override
     public void updateName(int bookId, String name) {
         Book book;
@@ -84,7 +110,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
     }
 
     /**
-     * Method write into book table column from irbis
+     * Method writes into book table column from irbis
      * @param bookId
      * @param bookIrbis
      */

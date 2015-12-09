@@ -2,6 +2,7 @@ package com;
 
 import com.dao.BookDaoImpl;
 import com.entity.Book;
+import com.service.HibernateService;
 
 import java.util.List;
 

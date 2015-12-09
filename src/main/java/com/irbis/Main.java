@@ -24,17 +24,17 @@ public class Main {
 //       тут я забираю данные в анси
          //   List<String> list  = irbisClient64.readRecordAnswer(11,false);
            // а тут в ютф
-           IrbisRecord64 irbisRecord64  = irbisClient64.readRecord(461069, false);
+     //      IrbisRecord64 irbisRecord64  = irbisClient64.readRecord(461069, false);
 
        //    System.out.println("version : " + irbisClient64.getServerVersion());
-            System.out.println(irbisRecord64 + "//");
+    //        System.out.println(irbisRecord64 + "//");
 //            irbisRecord64.addField("951","http://oldlib.nlu.edu.ua/index.php?r=preview%2Findex&book_id=0");
 //           System.out.println(irbisRecord64 + "//");
 
      //    TESTED
-//            List<Integer> searchRes = irbisClient64.search("T=Уголовный$");
-//            System.out.println(searchRes.get(0));
-//            System.out.println(searchRes.size());
+            List<Integer> searchRes = irbisClient64.search("T=кодекс законов о труде$");
+            System.out.println(searchRes);
+            System.out.println(searchRes.size());
 //           String resultData = irbisClient64.readFormatedRecord(searchRes.get(0), "@INFOW");
 //           IrbisService irbisService = new IrbisService();
 //            irbisService.filterAnswer(resultData);
@@ -108,7 +108,7 @@ public class Main {
 
        //     IrbisRecord64 irbisRecord64 = IrbisRecord64.parse(list, 1);
          //   irbisRecord64 = IrbisRecord64.parse(list, 1);
-            irbisClient64.writeRecord(irbisRecord64, false, false);
+        //    irbisClient64.writeRecord(irbisRecord64, false, false);
 
 
                     } catch (Exception e) {

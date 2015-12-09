@@ -1,5 +1,6 @@
 package com.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -8,15 +9,16 @@ import java.io.File;
  * Created by pc8 on 06.11.15.
  */
 @Service
-
 public class FileService {
     public FileService() {
     }
 
-    //    @Value("${directory}")
-//    private String DIRECTORY;
-    private String DIRECTORY = "/home/pc8/TEST/";
+    @Value("${directory}")
+    private String DIRECTORY;
 
+    /**
+     * This method deletes all file from directory of books
+     */
     public void  deleteAllFiles(){
         File file = new File(DIRECTORY);
         for(File f : file.listFiles()) {

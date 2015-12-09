@@ -8,6 +8,7 @@ import com.service.JsonWrappingServise;
 
 import it.sauronsoftware.ftp4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,47 +28,53 @@ public class JsonController {
 
     public JsonController() {
     }
+
     @Autowired
     private BookService bookService;
     @Autowired
     private JsonWrappingServise jsonWrappingServise;
+  //  @Autowired
+    @Autowired
+    private ApplicationContext appContext;
+
+    private DownloadBookService downloadBookService;
+
 
     private List<Book> bookList = null;
-    private DownloadBookService downloadBookService;
+
 
 
     @PostConstruct
     public void init() {
-
         this.bookList = bookService.getAllBooks();
     }
+
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
 
-
     @ResponseBody
-    @RequestMapping(value = "/book", produces={"application/json; charset=UTF-8"})
+    @RequestMapping(value = "/book", produces = {"application/json; charset=UTF-8"})
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex)
             throws IOException, FTPAbortedException, FTPDataTransferException,
-                   FTPException, FTPListParseException, FTPIllegalReplyException {
+            FTPException, FTPListParseException, FTPIllegalReplyException {
 
         Book book = null;
 
 
-        if (bookIndex!=null){
-             book = bookList.get(bookIndex);
+        if (bookIndex != null) {
+            book = bookList.get(bookIndex);
         } else {
-             book = bookList.get(0);
+            book = bookList.get(0);
         }
 
-        downloadBookService = new DownloadBookService(String.valueOf(book.getBookId()));
+        downloadBookService = (DownloadBookService) appContext.getBean("downloadBookService",String.valueOf(book.getBookId()));
         downloadBookService.download();
 
         System.out.println(jsonWrappingServise.getJsonString(book));
-        return  jsonWrappingServise.getJsonString(book);
+        return jsonWrappingServise.getJsonString(book);
     }
 
     @ResponseBody

@@ -26,11 +26,29 @@ public class FtpClientAdapter {
         this.password = password;
     }
 
+    /**
+     * This method connects to the FTP server
+     * @param host
+     * @throws FTPException
+     * @throws IOException
+     * @throws FTPIllegalReplyException
+     */
     public void connect(String host) throws FTPException, IOException, FTPIllegalReplyException {
-        this.ftpClient.connect(host);
-        this.ftpClient.login(login, password);
+       try {
+
+           this.ftpClient.connect(host);
+           this.ftpClient.login(login, password);
+       } catch ( Exception e){
+           e.printStackTrace();
+       }
     }
 
+    /**
+     * This method disconnect to he FTP server
+     * @throws FTPException
+     * @throws IOException
+     * @throws FTPIllegalReplyException
+     */
     public void disconnect() throws FTPException, IOException, FTPIllegalReplyException {
         if (ftpClient != null) {
             ftpClient.disconnect(true);
@@ -38,29 +56,70 @@ public class FtpClientAdapter {
 
     }
 
+    /**
+     * This method downloads specific file
+     * @param file
+     * @throws FTPException
+     * @throws IOException
+     * @throws FTPIllegalReplyException
+     * @throws FTPAbortedException
+     * @throws FTPDataTransferException
+     * @throws FTPListParseException
+     */
     public void download(String file) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
         if (ftpClient != null) {
-
             this.ftpClient.download(file, new File(localpath + "/" + file));
         }
     }
 
-
+    /**
+     * This method changes current directory in FTP server
+     * @param dir
+     * @throws FTPException
+     * @throws IOException
+     * @throws FTPIllegalReplyException
+     */
     public void changeDirectory(String dir) throws FTPException, IOException, FTPIllegalReplyException {
-        if (ftpClient != null) {
+      try {
+          System.out.println(dir);
+          if (ftpClient != null) {
               ftpClient.changeDirectory(dir);
-        }
+          }
+      } catch (Exception e){
+       e.printStackTrace();
+      }
     }
 
+    /**
+     * This method set path work directory in local computer
+     * @param localpath
+     */
     public void setLocalpath(String localpath) {
         this.localpath = localpath;
     }
 
-
+    /**
+     * This method change directory up in the FTP server
+     * @throws FTPException
+     * @throws IOException
+     * @throws FTPIllegalReplyException
+     */
     public void changeDirectoryUp() throws FTPException, IOException, FTPIllegalReplyException {
-        this.ftpClient.changeDirectoryUp();
-    }
 
+          this.ftpClient.changeDirectoryUp();
+
+      }
+
+    /**
+     * This method returns list names of current directory
+     * @return
+     * @throws FTPException
+     * @throws IOException
+     * @throws FTPDataTransferException
+     * @throws FTPListParseException
+     * @throws FTPIllegalReplyException
+     * @throws FTPAbortedException
+     */
     public List<String> listNames() throws FTPException, IOException, FTPDataTransferException, FTPListParseException, FTPIllegalReplyException, FTPAbortedException {
         return Arrays.asList(this.ftpClient.listNames());
     }

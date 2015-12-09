@@ -32,6 +32,7 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
         $scope._Index = 0;
         $scope._maxIndex = 0;
         $scope.photos = [];
+        $scope.testFunc();
     }
 
     $scope.increment = function () {
@@ -119,6 +120,11 @@ app.controller('SearchCtrl', ['$scope', '$http', '$sce', function ($scope, $http
 
     $scope.proccesing = false;
 
+    $scope.testFunc = function(){
+        alert('testFunc');
+
+    };
+
     $scope.arrIrbis;
     $scope.tmp;
     $scope.indexIrbis = 0;
@@ -126,6 +132,8 @@ app.controller('SearchCtrl', ['$scope', '$http', '$sce', function ($scope, $http
     $scope.search = function () {
         alert($scope.keyword);
         $scope.getIrbisDesc();
+        $scope.indexIrbis = 0;
+
     };
 
     $scope.getIrbisDesc = function () {
@@ -146,10 +154,10 @@ app.controller('SearchCtrl', ['$scope', '$http', '$sce', function ($scope, $http
             });
     };
     $scope.nextIrbis = function () {
-        $scope.indexIrbis = ($scope.indexIrbis > 0) ? --$scope.indexIrbis : $scope.arrIrbis.length - 1;
+        $scope.indexIrbis = ($scope.indexIrbis < $scope.arrIrbis.length - 1) ? ++$scope.indexIrbis : 0;
     }
     $scope.prevIrbis = function () {
-        $scope.indexIrbis = ($scope.indexIrbis < $scope.arrIrbis.length - 1) ? ++$scope.indexIrbis : 0;
+         $scope.indexIrbis = ($scope.indexIrbis > 0) ? --$scope.indexIrbis : $scope.arrIrbis.length - 1;
     }
 }]);
 

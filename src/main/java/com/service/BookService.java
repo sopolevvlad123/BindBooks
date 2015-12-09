@@ -2,6 +2,7 @@ package com.service;
 
 import com.dao.BookDaoImpl;
 import com.entity.Book;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,25 +12,31 @@ import java.util.List;
  */
 @Service
 public class BookService {
-    public BookService(){
 
+    public BookService() {
     }
 
-      BookDaoImpl bookDao = new BookDaoImpl();
+    @Autowired
+    BookDaoImpl bookDao;
 
     /**
-     * Method returns Book by id
+     * This method returns Book by id
+     *
      * @param id
      * @return
      */
-    public Book getBook(int id){
+    public Book getBook(int id) {
 
         return bookDao.getBookById(id);
 
     }
 
-    public List<Book> getAllBooks(){
-
+    /**
+     * This method returns all the books that need to be processed
+     *
+     * @return
+     */
+    public List<Book> getAllBooks() {
         return bookDao.getAllBooks();
     }
 }

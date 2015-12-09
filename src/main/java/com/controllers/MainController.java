@@ -18,8 +18,6 @@ public class MainController {
         @RequestMapping(value = "/", method = RequestMethod.GET)
         public String printWelcome() {
 
-
-
             return "static/index.html";
 
 
