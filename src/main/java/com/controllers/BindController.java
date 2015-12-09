@@ -46,7 +46,7 @@ public class BindController {
         BookDao bookDao = daoService.getBookDao();
         System.out.println("1) Controller mfn"+ mfn  );
         System.out.println("2) Controller bookId"+ bookId  );
-       IrbisDao irbisDao = daoService.getIrbisDao();
+        IrbisDao irbisDao = daoService.getIrbisDao();
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
         System.out.println("3) bookIrbis : "  + bookIrbis);
 
