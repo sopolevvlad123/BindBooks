@@ -5,7 +5,11 @@ import com.irbis.IrbisClient64;
 import com.irbis.IrbisField64;
 import com.irbis.IrbisRecord64;
 import com.irbis.IrbisSubField64;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.apache.log4j.Logger;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +21,11 @@ import java.util.List;
 public class IrbisRecordService {
     public IrbisRecordService() {
     }
+
     @Autowired
     private IrbisService irbisService;
     private IrbisClient64 irbisClient64;
+    private static final Logger logger = Logger.getLogger(IrbisRecordService.class);
     private IrbisRecord64 irbisRecord64;
 
 
@@ -300,9 +306,11 @@ public class IrbisRecordService {
             resultData = irbisClient64.readFormatedRecord(irbisRecord64.getMfn(), "@BRIEFP");
             resultData = irbisService.filterAnswer(resultData);
         } catch (Exception e) {
-            e.printStackTrace();
 
-        }
-        return resultData;
+          e.printStackTrace();
+          logger.error("could not get IRBIS book escription'",e);
+      }
+        return  resultData;
+
     }
 }

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MainTest {
 
 
-    public static void main(String[] args) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
+   /* public static void main(String[] args) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
 //        MainTest mainTest = new MainTest();
 
 //        DownloadBookService downloadService = new DownloadBookService("1035");
@@ -47,6 +47,6 @@ public class MainTest {
 
 //        FileService fileService = new FileService();
 //        fileService.deleteAllFiles();
-
+*/
     }
-}
+

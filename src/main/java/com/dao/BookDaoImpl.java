@@ -4,11 +4,14 @@ import com.entity.Book;
 import com.entity.BookIrbis;
 import com.service.CloseableSession;
 import com.service.HibernateService;
-import org.hibernate.SessionFactory;
+
+
+import org.apache.log4j.Logger;
+
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +22,7 @@ import java.util.List;
  */
 @Repository
 public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
+    private static final Logger logger = Logger.getLogger(BookDaoImpl.class);
 
     public BookDaoImpl() {
         setSessionFactory(HibernateService.createSessionFactory());
@@ -27,6 +31,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
     /**
      * Metod returns Book by id
+     *
      * @param id
      * @return
      */
@@ -36,15 +41,16 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         Book book = null;
         try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
             book = (Book) closeableSession.getSession().createCriteria(Book.class).add(Restrictions.eq("bookId", id)).uniqueResult();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            //NEED ADD LOGER
+            logger.error("could not get book by id", e);
         }
         return book;
     }
 
     /**
      * Method returns all books without mfn
+     *
      * @return
      */
     @Override
@@ -52,19 +58,20 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
         List<Book> bookList = null;
 
-       // try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
+        // try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
         try (CloseableSession closeableSession = new CloseableSession(getSessionFactory().openSession())) {
             bookList = closeableSession.getSession().createCriteria(Book.class).add(Restrictions.isNull("mfn")).addOrder(Order.asc("bookId")).list();
 
-        }catch (Exception e){
-           e.printStackTrace();
-            //NEED ADD LOGER
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("could not get book list", e);
         }
         return bookList;
     }
 
     /**
      * Method changes field mfn of the Book
+     *
      * @param bookId
      * @param mfn
      */
@@ -78,16 +85,18 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
             book.setMfn(mfn);
             closeableSession.getSession().update(book);
             tx.commit();
-        }catch (Exception e){
-           if(tx != null) {
-               tx.rollback();
-           }
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+                logger.error("could not update mfn", e);
+            }
         }
 
     }
 
     /**
      * Method changes field name of the Book
+     *
      * @param bookId
      * @param name
      */
@@ -101,9 +110,10 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
             book.setEname(name);
             closeableSession.getSession().update(book);
             tx.commit();
-        }catch (Exception e){
-            if(tx != null) {
+        } catch (Exception e) {
+            if (tx != null) {
                 tx.rollback();
+                logger.error("could not get book's name", e);
             }
         }
 
@@ -111,6 +121,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
     /**
      * Method writes into book table column from irbis
+     *
      * @param bookId
      * @param bookIrbis
      */
@@ -134,9 +145,10 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
             book.setIndexBbk(bookIrbis.getIndexBbk());
             closeableSession.getSession().update(book);
             tx.commit();
-        }catch (Exception e){
-            if(tx != null) {
+        } catch (Exception e) {
+            if (tx != null) {
                 tx.rollback();
+                logger.error("could not update book", e);
             }
         }
 

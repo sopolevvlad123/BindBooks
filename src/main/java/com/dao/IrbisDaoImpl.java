@@ -7,9 +7,12 @@ import com.irbis.IrbisRecord64;
 import com.service.IrbisClientFactory;
 import com.service.IrbisRecordService;
 import com.service.IrbisService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+
+import org.apache.log4j.Logger;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +23,11 @@ import java.util.List;
 @Repository
 public class IrbisDaoImpl implements IrbisDao {
 
+    private static final Logger logger = Logger.getLogger(BookDaoImpl.class);
+
     public IrbisDaoImpl() {
     }
 
-    //Test version
-//    private IrbisService irbisService = new IrbisService();
-//    private IrbisRecordService irbisRecordService = new IrbisRecordService();
-//    private IrbisClientFactory irbisClientFactory = new IrbisClientFactory();
-
-    //Normal version
     @Autowired
     private IrbisService irbisService;
     @Autowired
@@ -54,7 +53,7 @@ public class IrbisDaoImpl implements IrbisDao {
             irbisClient64.writeRecord(irbisRecord64, false, false);
         } catch (Exception e) {
             e.printStackTrace();
-            //LOGGER!!!!!!!
+            logger.error("could not set url");
         } finally {
             irbisClient64.disconnect();
         }
@@ -87,7 +86,8 @@ public class IrbisDaoImpl implements IrbisDao {
 
         } catch (Exception e) {
             e.printStackTrace();
-            //LOGGER
+            logger.error("could not get IRBIS book");
+
         } finally {
             irbisClient64.disconnect();
         }
@@ -124,8 +124,8 @@ public class IrbisDaoImpl implements IrbisDao {
 
         } catch (Exception e) {
 
-            e.printStackTrace();//NEED ADD LOGGER
-
+            e.printStackTrace();
+            logger.error("could not  find book", e);
         } finally {
             irbisClient64.disconnect();
         }
