@@ -4,10 +4,9 @@
 /**
  * Created by pc8 on 27.11.15.
  */
-app.controller('BookController', ['$scope', '$http', 'bookDesc' , 'downloadService', function ($scope, $http, bookDesc, downloadService) {
+app.controller('bookController', ['$scope', '$http', 'bookDesc' , 'downloadService', '$rootScope', function ($scope, $http, bookDesc, downloadService, $rootScope) {
     $scope._Index = 0;
     $scope._maxIndex = 0;
-
     $scope.photos = [];
     $scope.index = {
         value: 0
@@ -32,7 +31,8 @@ app.controller('BookController', ['$scope', '$http', 'bookDesc' , 'downloadServi
         $scope._Index = 0;
         $scope._maxIndex = 0;
         $scope.photos = [];
-        $scope.testFunc();
+        $rootScope.$broadcast('nextBook');
+
     }
 
     $scope.increment = function () {
@@ -45,6 +45,7 @@ app.controller('BookController', ['$scope', '$http', 'bookDesc' , 'downloadServi
         $scope._Index = 0;
         $scope._maxIndex = 0;
         $scope.photos = [];
+        $rootScope.$broadcast('nextBook');
     }
 
     $scope.init = function () {
@@ -96,82 +97,9 @@ app.controller('BookController', ['$scope', '$http', 'bookDesc' , 'downloadServi
         $scope._Index = index;
     };
 
-}]);
-
-app.controller('SearchCtrl', ['$scope', '$http', '$sce', function ($scope, $http, $sce) {
-
-    $scope.proccesing = false;
-
-
-    $scope.arrIrbis;
-    $scope.tmp;
-    $scope.indexIrbis = 0;
-
-    $scope.search = function () {
-        alert($scope.keyword);
-        $scope.getIrbisDesc();
-        $scope.indexIrbis = 0;
-
-    };
-
-    $scope.getIrbisDesc = function () {
-        $scope.proccesing = true;
-        $http.get('http://10.251.0.21:8080/search', {params: {searchExpr: $scope.keyword}})
-
-            .success(function (data) {
-                alert('search');
-                $scope.arrIrbis = data;
-                for (var i = 0; i < $scope.arrIrbis.length; i++) {
-                    $scope.arrIrbis[i].html = $sce.trustAsHtml($scope.arrIrbis[i].html);
-                }
-                $scope.proccesing = false;
-
-            })
-            .error(function (err) {
-                return err;
-            });
-    };
-    $scope.nextIrbis = function () {
-        $scope.indexIrbis = ($scope.indexIrbis < $scope.arrIrbis.length - 1) ? ++$scope.indexIrbis : 0;
-    }
-    $scope.prevIrbis = function () {
-         $scope.indexIrbis = ($scope.indexIrbis > 0) ? --$scope.indexIrbis : $scope.arrIrbis.length - 1;
-    }
-}]);
-
-
-app.controller('BindCtrl', ['$scope', '$http', function ($scope, $http) {
-
-    $scope.bind = function () {
-        if (typeof $scope.arrIrbis !== 'undefined') {
-
-            console.log("bind, bookId =  " + $scope.book.bookId + "and mfn = " + $scope.arrIrbis[$scope.indexIrbis].mfn);
-            $http.get('http://10.251.0.21:8080/bindBook', {
-            //$http.get('http://#', {
-                params: {
-                    bookId: $scope.book.bookId,
-                    mfn: $scope.arrIrbis[$scope.indexIrbis].mfn
-                }
-            }).success(function (data) {
-
-            }).error(function (err) {
-                return err;
-            });
-        } else {
-            alert("Найдите книгу которую нужно связать");
-        }
-
-    }
+    $rootScope.$on('binded', function(){
+        $scope.next();
+    });
 
 }]);
 
-
-app.filter('trust', [
-    '$sce',
-    function ($sce) {
-        return function (value, type) {
-            // Defaults to treating trusted text as `html`
-            return $sce.trustAs(type || 'html', text);
-        }
-    }
-]);

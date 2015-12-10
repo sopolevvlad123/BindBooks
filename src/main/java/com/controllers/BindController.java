@@ -42,12 +42,15 @@ public class BindController {
                          @RequestParam(value = "mfn", required = true) Integer mfn)
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
+//Comented for test
+//        BookDao bookDao = daoService.getBookDao();
+//        IrbisDao irbisDao = daoService.getIrbisDao();
+//        BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
+//        bookDao.updateBook(bookId, bookIrbis);
+//        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
 
-        BookDao bookDao = daoService.getBookDao();
-        IrbisDao irbisDao = daoService.getIrbisDao();
-        BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
-        bookDao.updateBook(bookId, bookIrbis);
-        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
+        System.out.println("bindBook; bookId = " + bookId + ", mfn = " + mfn);
+
     }
 
     @ResponseBody
@@ -55,10 +58,10 @@ public class BindController {
     public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId)
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
-
-        BookDao bookDao = daoService.getBookDao();
-        bookDao.updateMfn(bookId, -1);
-
+//Comented for test
+//        BookDao bookDao = daoService.getBookDao();
+//        bookDao.updateMfn(bookId, -1);
+        System.out.println("noBook | " + bookId );
     }
 
 }
