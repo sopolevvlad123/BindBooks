@@ -4,26 +4,26 @@
 /**
  * Created by pc8 on 27.11.15.
  */
-app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
+app.controller('BookController', ['$scope', '$http', 'bookDesc' , 'downloadService', function ($scope, $http, bookDesc, downloadService) {
     $scope._Index = 0;
     $scope._maxIndex = 0;
-    // Set of Photos
+
     $scope.photos = [];
-
-
     $scope.index = {
         value: 0
     };
+
+    var callback = function (data){
+        $scope.book = data;
+        $scope.photos = [];
+        $scope.addImage();
+    };
+
     $scope.getDesc = function () {
-        $http.get('http://10.251.0.21:8080/book', {params: {bookIndex: $scope.index.value}})
-            .success(function (data) {
-                $scope.book = data;
-                $scope.photos = [];
-                $scope.addImage();
-            })
-            .error(function (err) {
-                return err;
-            });
+
+        $scope.photos = [];
+        bookDesc.getBookDesc($scope.index.value, $scope._Index,  $scope.photos, callback );
+
     }
 
     $scope.next = function () {
@@ -37,8 +37,6 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.increment = function () {
         $scope.index.value++;
-
-
     }
 
     $scope.decrement = function () {
@@ -51,11 +49,8 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.init = function () {
           $scope.getDesc();
-
     }
-    //$scope.initImage = function () {
-    //    //$scope.addImage();
-    //}
+
     $scope.addImage = function () {
         for (var i = 0; i < 10; i++) {
             $scope.photos.push({
@@ -80,16 +75,13 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
         if ($scope._maxIndex < $scope._Index) {
             ++$scope._maxIndex;
         }
-
-
         console.log($scope._Index + ' & ' + $scope._maxIndex );
 
      if ( $scope._maxIndex ===   $scope._Index) {
 
          if ($scope._Index % 10 === 4) {
              console.log($scope._Index + ' + download call');
-             $scope.download();
-
+             downloadService.download();
          }
          if ($scope._Index % 10 === 6) {
              console.log($scope._Index + ' + add call');
@@ -98,21 +90,11 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
          }
      }
 
-
     };
     // show a certain image
     $scope.showPhoto = function (index) {
         $scope._Index = index;
     };
-    $scope.download = function () {
-        $http.get('http://10.251.0.21:8080/download')
-            .success(function (data) {
-                    })
-            .error(function (err) {
-                return err;
-            });
-    }
-
 
 }]);
 
@@ -120,10 +102,6 @@ app.controller('SearchCtrl', ['$scope', '$http', '$sce', function ($scope, $http
 
     $scope.proccesing = false;
 
-    $scope.testFunc = function(){
-        alert('testFunc');
-
-    };
 
     $scope.arrIrbis;
     $scope.tmp;
