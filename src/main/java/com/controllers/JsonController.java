@@ -7,6 +7,7 @@ import com.service.JsonWrappingServise;
 
 
 import it.sauronsoftware.ftp4j.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,8 @@ import java.util.List;
  */
 @Controller
 public class JsonController {
+    private static final Logger logger = Logger.getLogger(JsonController.class);
+
 
     public JsonController() {
     }
@@ -51,12 +54,8 @@ public class JsonController {
     @ResponseBody
     @RequestMapping(value = "/book", produces={"application/json; charset=UTF-8"})
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex)
-            throws IOException, FTPAbortedException, FTPDataTransferException,
-                   FTPException, FTPListParseException, FTPIllegalReplyException {
-
+             {
         Book book = null;
-
-
         if (bookIndex!=null){
              book = bookList.get(bookIndex);
         } else {
@@ -64,20 +63,24 @@ public class JsonController {
         }
 
         downloadBookService = new DownloadBookService(String.valueOf(book.getBookId()));
-        downloadBookService.download();
 
-        System.out.println(jsonWrappingServise.getJsonString(book));
+                 try {
+                     downloadBookService.download();
+                 }  catch (Exception e) {
+                     logger.error("Exception during downloading book list", e);
+                 }
+
         return  jsonWrappingServise.getJsonString(book);
     }
 
     @ResponseBody
     @RequestMapping(value = "/download")
-    public void downloadBookJpg()
-            throws IOException, FTPAbortedException, FTPDataTransferException,
-            FTPException, FTPListParseException, FTPIllegalReplyException {
-
-        downloadBookService.download();
-        System.out.println("download action --- /download");
+    public void downloadBookJpg() {
+                 try {
+                     downloadBookService.download();
+                 } catch (Exception e) {
+                     logger.error("Exception during downloading book scans", e);
+                 }
     }
 
 }

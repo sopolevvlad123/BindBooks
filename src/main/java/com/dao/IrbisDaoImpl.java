@@ -7,6 +7,7 @@ import com.irbis.IrbisRecord64;
 import com.service.IrbisClientFactory;
 import com.service.IrbisRecordService;
 import com.service.IrbisService;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.List;
  */
 @Service
 public class IrbisDaoImpl implements IrbisDao {
+    private static final Logger logger = Logger.getLogger(BookDaoImpl.class);
+
     public IrbisDaoImpl() {
     }
 
@@ -46,7 +49,7 @@ public class IrbisDaoImpl implements IrbisDao {
             irbisClient64.writeRecord(irbisRecord64, false, false);
         } catch (Exception e) {
             e.printStackTrace();
-            //LOGGER!!!!!!!
+            logger.error("could not set url");
         } finally {
             irbisClient64.disconnect();
         }
@@ -79,7 +82,8 @@ public class IrbisDaoImpl implements IrbisDao {
 
         } catch (Exception e) {
             e.printStackTrace();
-            //LOGGER
+            logger.error("could not get IRBIS book");
+
         } finally {
             irbisClient64.disconnect();
         }
@@ -116,8 +120,8 @@ public class IrbisDaoImpl implements IrbisDao {
 
         } catch (Exception e) {
 
-            e.printStackTrace();//NEED ADD LOGGER
-
+            e.printStackTrace();
+            logger.error("could not  find book", e);
         } finally {
             irbisClient64.disconnect();
         }

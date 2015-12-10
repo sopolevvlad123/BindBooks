@@ -9,6 +9,7 @@ import com.service.DAOService;
 import com.service.IrbisService;
 import com.service.UrlSevice;
 import it.sauronsoftware.ftp4j.*;
+import org.apache.log4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,7 @@ import java.io.IOException;
  */
 @Controller
 public class BindController {
+    private static final Logger logger = Logger.getLogger(BindController.class);
     @Autowired
     private DAOService daoService;
     @Autowired
@@ -38,33 +40,36 @@ public class BindController {
 
     @ResponseBody
     @RequestMapping(value = "/bindBook")
-    public void doBind(@RequestParam(value = "bookId", required = true) Integer bookId,
-                         @RequestParam(value = "mfn", required = true) Integer mfn)
+    public void doBind(@RequestParam(value ="bookId", required = true) Integer bookId,
+                         @RequestParam(value ="mfn", required = true) Integer mfn)
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
 
         BookDao bookDao = daoService.getBookDao();
-        System.out.println("1) Controller mfn"+ mfn  );
-        System.out.println("2) Controller bookId"+ bookId  );
         IrbisDao irbisDao = daoService.getIrbisDao();
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
-        System.out.println("3) bookIrbis : "  + bookIrbis);
+        /*bookDao.updateBook(bookId, bookIrbis);
+        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);*/
+        if(logger.isDebugEnabled()){
+            logger.debug("Book bound: post bookId = " + bookId + ", IRBIS mfn = " + mfn );
+        }
 
-        bookDao.updateBook(bookId, bookIrbis);
-        System.out.println("4) irbisbook" + bookIrbis);
 
-        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
     }
 
     @ResponseBody
     @RequestMapping(value = "/noBook")
     public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId)
             throws IOException, FTPAbortedException, FTPDataTransferException,
-            FTPException, FTPListParseException, FTPIllegalReplyException {
+            FTPException, FTPListParseException, FTPIllegalReplyException
+             {
 
         BookDao bookDao = daoService.getBookDao();
         bookDao.updateMfn(bookId, -1);
 
+        if(logger.isDebugEnabled()){
+            logger.debug("No march found for bookId" + bookId);
+        }
     }
 
 }

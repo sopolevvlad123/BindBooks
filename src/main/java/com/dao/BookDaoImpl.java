@@ -4,6 +4,7 @@ import com.entity.Book;
 import com.entity.BookIrbis;
 import com.service.CloseableSession;
 import com.service.HibernateService;
+import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by pc8 on 03.11.15.
  */
 public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
+    private static final Logger logger = Logger.getLogger(BookDaoImpl.class);
 
     @Override
     public Book getBookById(int id) {
@@ -24,7 +26,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
             book = (Book) closeableSession.getSession().createCriteria(Book.class).add(Restrictions.eq("bookId", id)).uniqueResult();
         }catch (Exception e){
             e.printStackTrace();
-            //NEED ADD LOGER
+            logger.error("could not get book by id",e);
         }
         return book;
     }
@@ -42,7 +44,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
             bookList = closeableSession.getSession().createCriteria(Book.class).add(Restrictions.isNull("mfn")).addOrder(Order.asc("bookId")).list();
         }catch (Exception e){
            e.printStackTrace();
-            //NEED ADD LOGER
+            logger.error("could not get book list", e);
         }
         return bookList;
     }
@@ -60,6 +62,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         }catch (Exception e){
            if(tx != null) {
                tx.rollback();
+               logger.error("could not update mfn", e);
            }
         }
 
@@ -78,6 +81,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         }catch (Exception e){
             if(tx != null) {
                 tx.rollback();
+                logger.error("could not get book's name", e);
             }
         }
 
@@ -111,6 +115,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         }catch (Exception e){
             if(tx != null) {
                 tx.rollback();
+                logger.error("could not update book",e);
             }
         }
 

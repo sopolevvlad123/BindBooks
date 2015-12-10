@@ -14,20 +14,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MainController {
 
+    public ModelAndView getWelcome() {
 
-        @RequestMapping(value = "/", method = RequestMethod.GET)
+
+        ModelAndView model = new ModelAndView("welcome");
+        model.addObject("msg", "Hello Spring MVC + Log4j");
+        return model;
+
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
         public String printWelcome() {
-
-
-
             return "static/index.html";
-
-
         }
-
-
-
-
-
 
 }
