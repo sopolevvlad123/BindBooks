@@ -4,6 +4,7 @@ import com.dao.BookDao;
 import com.dao.BookDaoImpl;
 import com.dao.IrbisDao;
 import com.dao.IrbisDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,15 +12,22 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DAOService {
+    @Autowired
+    private BookDao bookDao;
+    @Autowired
+    private IrbisDao irbisDao;
+
+
     public DAOService() {
+
     }
 
     public IrbisDao getIrbisDao(){
-        return new IrbisDaoImpl();
+        return irbisDao;
     }
 
     public BookDao getBookDao(){
-        return new BookDaoImpl();
+        return bookDao;
     }
 
 }

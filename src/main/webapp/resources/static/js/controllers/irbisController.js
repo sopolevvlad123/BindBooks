@@ -39,7 +39,7 @@ app.controller('irbisCtrl', ['$scope', '$http', '$sce', 'bindService', 'irbisSer
     };
 
     $scope.bind = function () {
-        if (typeof $scope.arrIrbis !== 'undefined') {
+        if ( (typeof $scope.arrIrbis !== 'undefined') && ($scope.arrIrbis.length !== 0)  && (typeof $scope.arrIrbis[$scope.indexIrbis].mfn !== 'undefined') ) {
             bindService.bind($scope.book.bookId, $scope.arrIrbis[$scope.indexIrbis].mfn);
             $scope.cleanIrbisData();
             $rootScope.$broadcast('binded');

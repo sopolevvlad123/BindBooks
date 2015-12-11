@@ -71,8 +71,10 @@ public class IrbisDaoImpl implements IrbisDao {
     public BookIrbis getBookIrbis(int mfn) {
 
 
-        IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
-        BookIrbis bookIrbis = null;
+        IrbisClient64 irbisClient64  = irbisClientFactory.getIrbisClient();
+
+
+         BookIrbis bookIrbis = null;
         try {
             irbisClient64.connect();
             IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);

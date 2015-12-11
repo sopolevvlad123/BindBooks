@@ -28,4 +28,9 @@ public class MainController {
         return "static/index.html";
     }
 
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    public String error() {
+
+        return "static/error.html";
+    }
 }

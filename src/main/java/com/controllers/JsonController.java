@@ -61,7 +61,9 @@ public class JsonController {
     @RequestMapping(value = "/book", produces = {"application/json; charset=UTF-8"})
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex)
 
+
     {
+
         Book book = null;
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
@@ -75,9 +77,11 @@ public class JsonController {
         System.out.println(jsonWrappingServise.getJsonString(book));
         try {
             downloadBookService.download();
+
         } catch (Exception e) {
             logger.error("Exception during downloading book list", e);
         }
+
 
         return jsonWrappingServise.getJsonString(book);
 
@@ -86,11 +90,13 @@ public class JsonController {
     @ResponseBody
     @RequestMapping(value = "/download")
     public void downloadBookJpg() {
+
         try {
             downloadBookService.download();
         } catch (Exception e) {
             logger.error("Exception during downloading book scans", e);
         }
+
     }
 
 }

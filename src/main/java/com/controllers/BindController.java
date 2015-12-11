@@ -4,13 +4,11 @@ import com.dao.BookDao;
 import com.dao.IrbisDao;
 import com.entity.Book;
 import com.entity.BookIrbis;
-import com.service.BookService;
-import com.service.DAOService;
-import com.service.IrbisService;
-import com.service.UrlSevice;
+import com.service.*;
 import it.sauronsoftware.ftp4j.*;
 import org.apache.log4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -30,8 +29,11 @@ public class BindController {
     private DAOService daoService;
     @Autowired
     private UrlSevice urlSevice;
+    @Autowired
+    private FileService  fileService;
 
-
+    @Value("${directory}")
+    private String DIRECTORY;
 
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
@@ -49,9 +51,15 @@ public class BindController {
 
         BookDao bookDao = daoService.getBookDao();
         IrbisDao irbisDao = daoService.getIrbisDao();
+
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
+
+
+
         /*bookDao.updateBook(bookId, bookIrbis);
-        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);*/
+        irbisDao.setUrl(urlSevice.getUrl(bookId)), mfn);*/
+        fileService.deleteFile(new File(DIRECTORY + bookId));
+
         if(logger.isDebugEnabled()){
             logger.debug("Book bound: post bookId = " + bookId + ", IRBIS mfn = " + mfn );
         }
@@ -64,8 +72,9 @@ public class BindController {
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException
              {
-        BookDao bookDao = daoService.getBookDao();
-        bookDao.updateMfn(bookId, -1);
+//        BookDao bookDao = daoService.getBookDao();
+//        bookDao.updateMfn(bookId, -1);
+        fileService.deleteFile(new File(DIRECTORY + bookId));
         if(logger.isDebugEnabled()){
             logger.debug("No march found for bookId" + bookId);
         }
