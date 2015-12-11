@@ -81,6 +81,7 @@ h2{
     background-color: #FAF0E6;
     border-radius: 5px;
     height: 90px;
+    overflow: auto;
 }
 .irbisbookInfo{
     width: 98%;
@@ -94,7 +95,7 @@ h2{
 .postView{
     margin-top: 10px;
     height: 70%;
-
+    overflow: auto;
 }
 .postView img {
 

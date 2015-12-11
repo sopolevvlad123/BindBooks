@@ -47,7 +47,7 @@
                     <b> Автор: </b> {{book.author}} <br>
                     <b>Название:</b> {{ book.name}} <br>
                     <b> Год:</b> {{book.year}} <br>
-                    <b> Index</b> {{ index.value}} <br>
+                    <!--<b> Index</b> {{ index.value}} <br>-->
                 </div>
                 <!--Post book info end-->
 
@@ -90,16 +90,25 @@
                 <!--IRBIS search form end-->
 
                 <!--Search result num-->
-                <div class="col-md-12 searchResult fitter">
-                    <p>length: {{arrIrbis.length}}; index: {{indexIrbis}}</p>
-                </div>
+
+                    <div class="col-md-5 searchResult fitter" style="float: left">
+                        <p>Найдено записей: {{arrIrbis.length}}</p>
+                    </div>
+
+                    <div class="col-md-5 searchResult fitter" style="float: right">
+                        <p>Текущая запись: {{indexIrbis+1}}</p>
+                    </div>
+
+
+
+
 
                 <!--Search result num end-->
 
                 <!--IRBIS book info-->
 
                 <div class="col-md-12 irbisbookInfo fitter">
-                    <b> {{arrIrbis[indexIrbis].mfn}} </b><br>
+                   <!-- <b> {{arrIrbis[indexIrbis].mfn}} </b><br>-->
 
                     <!--Modal progress bar-->
                     <div ng-if="proccesing">

@@ -128,7 +128,7 @@
                 <checksumPolicy>ignore</checksumPolicy>
             </releases>
 
-            <url>file:///home/pc8/sadfsdfa/lib/</url>
+            <url>file:///home/pc9/WORK/Irbis/IrbisPostgreBindingService/lib/</url>
         </repository>
     </repositories>
 
