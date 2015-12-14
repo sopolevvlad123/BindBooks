@@ -30,38 +30,32 @@ public class BindController {
     @Autowired
     private UrlSevice urlSevice;
     @Autowired
-    private FileService  fileService;
+    private FileService fileService;
 
     @Value("${directory}")
     private String DIRECTORY;
 
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin","*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
     @ResponseBody
     @RequestMapping(value = "/bindBook")
-    public void doBind(@RequestParam(value ="bookId", required = true) Integer bookId,
-                         @RequestParam(value ="mfn", required = true) Integer mfn)
+    public void doBind(@RequestParam(value = "bookId", required = true) Integer bookId,
+                       @RequestParam(value = "mfn", required = true) Integer mfn)
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
-
-        System.out.println("bindBook; bookId = " + bookId + ", mfn = " + mfn);
-
         BookDao bookDao = daoService.getBookDao();
         IrbisDao irbisDao = daoService.getIrbisDao();
-
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
-
-
 
         /*bookDao.updateBook(bookId, bookIrbis);
         irbisDao.setUrl(urlSevice.getUrl(bookId)), mfn);*/
         fileService.deleteFile(new File(DIRECTORY + bookId));
 
-        if(logger.isDebugEnabled()){
-            logger.debug("Book bound: post bookId = " + bookId + ", IRBIS mfn = " + mfn );
+        if (logger.isDebugEnabled()) {
+            logger.debug("Book bound: post bookId = " + bookId + ", IRBIS mfn = " + mfn);
         }
 
     }
@@ -70,12 +64,11 @@ public class BindController {
     @RequestMapping(value = "/noBook")
     public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId)
             throws IOException, FTPAbortedException, FTPDataTransferException,
-            FTPException, FTPListParseException, FTPIllegalReplyException
-             {
+            FTPException, FTPListParseException, FTPIllegalReplyException {
 //        BookDao bookDao = daoService.getBookDao();
 //        bookDao.updateMfn(bookId, -1);
         fileService.deleteFile(new File(DIRECTORY + bookId));
-        if(logger.isDebugEnabled()){
+        if (logger.isDebugEnabled()) {
             logger.debug("No march found for bookId" + bookId);
         }
 

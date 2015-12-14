@@ -4,7 +4,7 @@
 /**
  * Created by pc8 on 27.11.15.
  */
-app.controller('bookController', ['$scope', '$http', 'bookDesc' , 'downloadService', '$rootScope', function ($scope, $http, bookDesc, downloadService, $rootScope) {
+app.controller('bookController', ['$scope', '$http', 'bookDesc', 'downloadService', '$rootScope', function ($scope, $http, bookDesc, downloadService, $rootScope) {
     $scope._Index = 0;
     $scope._maxIndex = 0;
     $scope.photos = [];
@@ -12,16 +12,15 @@ app.controller('bookController', ['$scope', '$http', 'bookDesc' , 'downloadServi
         value: 0
     };
 
-    var callback = function (data){
+    var callback = function (data) {
         $scope.book = data;
         $scope.photos = [];
         $scope.addImage();
     };
 
     $scope.getDesc = function () {
-
         $scope.photos = [];
-        bookDesc.getBookDesc($scope.index.value, $scope._Index,  $scope.photos, callback );
+        bookDesc.getBookDesc($scope.index.value, $scope._Index, $scope.photos, callback);
 
     }
 
@@ -49,13 +48,13 @@ app.controller('bookController', ['$scope', '$http', 'bookDesc' , 'downloadServi
     }
 
     $scope.init = function () {
-          $scope.getDesc();
+        $scope.getDesc();
     }
 
     $scope.addImage = function () {
         for (var i = 0; i < 10; i++) {
             $scope.photos.push({
-                src: 'http://10.251.0.21:8080/static/books/'+ $scope.book.bookId  +'/'
+                src: 'http://10.251.0.21:8080/static/books/' + $scope.book.bookId + '/'
                 + ($scope._Index + 1 + i) + '.jpg'
             });
         }
@@ -71,33 +70,29 @@ app.controller('bookController', ['$scope', '$http', 'bookDesc' , 'downloadServi
     };
     // show next image
     $scope.showNext = function () {
-
         $scope._Index = ($scope._Index < $scope.photos.length - 1) ? ++$scope._Index : 0;
         if ($scope._maxIndex < $scope._Index) {
             ++$scope._maxIndex;
         }
-        console.log($scope._Index + ' & ' + $scope._maxIndex );
+        console.log($scope._Index + ' & ' + $scope._maxIndex);
 
-     if ( $scope._maxIndex ===   $scope._Index) {
-
-         if ($scope._Index % 10 === 4) {
-             console.log($scope._Index + ' + download call');
-             downloadService.download();
-         }
-         if ($scope._Index % 10 === 6) {
-             console.log($scope._Index + ' + add call');
-             $scope.addImage();
-
-         }
-     }
-
+        if ($scope._maxIndex === $scope._Index) {
+            if ($scope._Index % 10 === 4) {
+                console.log($scope._Index + ' + download call');
+                downloadService.download();
+            }
+            if ($scope._Index % 10 === 6) {
+                console.log($scope._Index + ' + add call');
+                $scope.addImage();
+            }
+        }
     };
     // show a certain image
     $scope.showPhoto = function (index) {
         $scope._Index = index;
     };
 
-    $rootScope.$on('binded', function(){
+    $rootScope.$on('binded', function () {
         $scope.next();
     });
 

@@ -31,8 +31,6 @@ public class DownloadBookService {
     private static final String FOLDER_THIRTY = "30";
     private static final int DEFAULT_CUR_PAGE = 1;
     private static final int DEFAULT_PAGE_RANGE = 10;
-
-
     private int pageRange = DEFAULT_PAGE_RANGE;
     private FtpClientAdapter ftpClientAdapter = null;
     private String bookId;
@@ -55,7 +53,6 @@ public class DownloadBookService {
      */
     public void download() throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
         initFtpClientAdapter();
-        System.out.println(IP);
         ftpClientAdapter.connect(IP);
         File bookDir = new File(DIRECTORY + bookId);
         if (!bookDir.exists()) {
@@ -77,12 +74,12 @@ public class DownloadBookService {
         }
 
         incrementCurrentPage();
-        System.out.println("CountP=" + countPage + ", CurrentP" + currentPage + " ,Range" + pageRange);
         ftpClientAdapter.disconnect();
     }
 
     /**
      * This method initializes bookId
+     *
      * @param bookId
      */
     public void setBookId(String bookId) {
@@ -136,14 +133,12 @@ public class DownloadBookService {
         int count = 0;
         List<String> list = ftpClientAdapter.listNames();
         for (int i = 0; i < list.size(); i++) {
-
             if (list.get(i).endsWith(".jpg")) {
                 count++;
             }
         }
         countPage = count;
     }
-
 
 
 }

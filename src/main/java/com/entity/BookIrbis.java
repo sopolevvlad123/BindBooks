@@ -122,8 +122,6 @@ public class BookIrbis {
     }
 
 
-
-
     @Override
     public String toString() {
         return "BookIrbis{" +

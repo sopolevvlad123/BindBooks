@@ -8,7 +8,6 @@ app.controller('irbisCtrl', ['$scope', '$http', '$sce', 'bindService', 'irbisSer
     $scope.indexIrbis = 0;
 
     var callbackIrbis = function (data) {
-        alert('search');
         $scope.arrIrbis = data;
         for (var i = 0; i < $scope.arrIrbis.length; i++) {
             $scope.arrIrbis[i].html = $sce.trustAsHtml($scope.arrIrbis[i].html);
@@ -22,12 +21,12 @@ app.controller('irbisCtrl', ['$scope', '$http', '$sce', 'bindService', 'irbisSer
         $scope.keyword = '';
     }
 
-    $rootScope.$on('nextBook', function(){
+    $rootScope.$on('nextBook', function () {
         $scope.cleanIrbisData()
     });
 
     $scope.search = function () {
-        alert($scope.keyword);
+
         $scope.getIrbisDesc();
         $scope.indexIrbis = 0;
 
@@ -39,14 +38,13 @@ app.controller('irbisCtrl', ['$scope', '$http', '$sce', 'bindService', 'irbisSer
     };
 
     $scope.bind = function () {
-        if ( (typeof $scope.arrIrbis !== 'undefined') && ($scope.arrIrbis.length !== 0)  && (typeof $scope.arrIrbis[$scope.indexIrbis].mfn !== 'undefined') ) {
+        if ((typeof $scope.arrIrbis !== 'undefined') && ($scope.arrIrbis.length !== 0) && (typeof $scope.arrIrbis[$scope.indexIrbis].mfn !== 'undefined')) {
             bindService.bind($scope.book.bookId, $scope.arrIrbis[$scope.indexIrbis].mfn);
             $scope.cleanIrbisData();
             $rootScope.$broadcast('binded');
         } else {
             alert("Найдите книгу которую нужно связать");
         }
-
     }
 
     $scope.noBook = function () {
@@ -62,6 +60,4 @@ app.controller('irbisCtrl', ['$scope', '$http', '$sce', 'bindService', 'irbisSer
     $scope.prevIrbis = function () {
         $scope.indexIrbis = ($scope.indexIrbis > 0) ? --$scope.indexIrbis : $scope.arrIrbis.length - 1;
     }
-
-
 }]);

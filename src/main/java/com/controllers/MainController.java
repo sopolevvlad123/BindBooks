@@ -15,22 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
 
     public ModelAndView getWelcome() {
-
         ModelAndView model = new ModelAndView("welcome");
         model.addObject("msg", "Hello Spring MVC + Log4j");
         return model;
-
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printWelcome() {
-
         return "static/index.html";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error() {
-
         return "static/error.html";
     }
 }

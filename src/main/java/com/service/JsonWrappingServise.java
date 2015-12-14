@@ -15,21 +15,21 @@ public class JsonWrappingServise {
     public JsonWrappingServise() {
     }
 
-    public String getJsonString(Book book){
+    public String getJsonString(Book book) {
         JSONObject jsObject = new JSONObject();
 
-        jsObject.put("name",book.getEname());
-        jsObject.put("year",book.getYear());
+        jsObject.put("name", book.getEname());
+        jsObject.put("year", book.getYear());
         jsObject.put("author", book.getAuthor());
-        jsObject.put("bookId",book.getBookId());
+        jsObject.put("bookId", book.getBookId());
 
         return jsObject.toJSONString();
     }
 
-    public String getJsonIrbisBookHtml(List<BookIrbisHtml> bookHtmlList){
+    public String getJsonIrbisBookHtml(List<BookIrbisHtml> bookHtmlList) {
 
-       org.json.JSONArray jsonArray = new org.json.JSONArray(bookHtmlList);
-       return jsonArray.toString();
+        org.json.JSONArray jsonArray = new org.json.JSONArray(bookHtmlList);
+        return jsonArray.toString();
 
     }
 }

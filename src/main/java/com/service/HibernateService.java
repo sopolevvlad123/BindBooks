@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class HibernateService {
-    public HibernateService(){}
+    public HibernateService() {
+    }
 
     private static SessionFactory sessionFactory;
 
-    public static SessionFactory createSessionFactory(){
-      sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-      return sessionFactory;
+    public static SessionFactory createSessionFactory() {
+        sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+        return sessionFactory;
     }
 }

@@ -17,16 +17,15 @@ public class DAOService {
     @Autowired
     private IrbisDao irbisDao;
 
-
     public DAOService() {
 
     }
 
-    public IrbisDao getIrbisDao(){
+    public IrbisDao getIrbisDao() {
         return irbisDao;
     }
 
-    public BookDao getBookDao(){
+    public BookDao getBookDao() {
         return bookDao;
     }
 

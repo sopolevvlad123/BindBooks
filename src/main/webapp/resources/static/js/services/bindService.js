@@ -5,32 +5,31 @@
 app.service('bindService', function ($http) {
 
     this.bind = function (bookId, mfn) {
-            console.log("bind, bookId =  " + bookId + "and mfn = " + mfn);
-            $http.get('http://10.251.0.21:8080/bindBook', {
-                //$http.get('http://#', {
-                params: {
-                    bookId: bookId,
-                    mfn: mfn
-                }
-            }).success(function (data) {
+        console.log("bind, bookId =  " + bookId + "and mfn = " + mfn);
+        $http.get('http://10.251.0.21:8080/bindBook', {
 
-            }).error(function (err) {
-                return err;
-            });
+            params: {
+                bookId: bookId,
+                mfn: mfn
+            }
+        }).success(function (data) {
+
+        }).error(function (err) {
+            return err;
+        });
 
     }
 
-    this.noBook = function(bookId){
+    this.noBook = function (bookId) {
         $http.get('http://10.251.0.21:8080/noBook', {
-            //$http.get('http://#', {
             params: {
                 bookId: bookId
-                }
+            }
         })
-        .success(function (data) {
+            .success(function (data) {
 
             })
-        .error(function (err) {
+            .error(function (err) {
                 return err;
             });
     }

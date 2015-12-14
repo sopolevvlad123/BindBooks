@@ -27,16 +27,16 @@
 
 <body ng-app="myApp">
 
-    <div class="container-fluid all" ng-controller="bookController" data-ng-init="init()">
-        <header>
-            <nav class="navbar  topNav" role="navigation">
-                <div class="container">
-                    <div class="navbar-header logo">
-                        <img src="static/img/logo.png">
-                    </div>
+<div class="container-fluid all" ng-controller="bookController" data-ng-init="init()">
+    <header>
+        <nav class="navbar  topNav" role="navigation">
+            <div class="container">
+                <div class="navbar-header logo">
+                    <img src="static/img/logo.png">
                 </div>
-            </nav>
-        </header>
+            </div>
+        </nav>
+    </header>
 
     <div class="row bace">
         <!--Right side-->
@@ -134,9 +134,13 @@
                 <!--IRBIS book rewind end-->
 
                 <!--Bind book button group-->
-                <div class="col-xs-12 col-sm-12 col-lg-12  col-sd-12  col-md-12  bindGroup" >
-                    <button ng-click="bind()" type="button" class="btnStyle btn btn-lg  btnStyle prevBook" id="bindButton">СВЯЗАТЬ</button>
-                    <button ng-click="noBook()" git git type="button" class="btnStyle btn btn-lg  btnStyle nextBook" id="rejectButton">НЕТ КНИГИ </button>
+                <div class="col-xs-12 col-sm-12 col-lg-12  col-sd-12  col-md-12  bindGroup">
+                    <button ng-click="bind()" type="button" class="btnStyle btn btn-lg  btnStyle prevBook"
+                            id="bindButton">СВЯЗАТЬ
+                    </button>
+                    <button ng-click="noBook()" git git type="button" class="btnStyle btn btn-lg  btnStyle nextBook"
+                            id="rejectButton">НЕТ КНИГИ
+                    </button>
                 </div>
                 <!--Bind book button group end-->
             </div>
@@ -161,7 +165,6 @@
 
 <!-- Filters -->
 <script src="static/js/filters/filterHtml.js"></script>
-
 
 
 </body>

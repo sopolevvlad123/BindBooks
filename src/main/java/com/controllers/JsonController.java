@@ -28,7 +28,6 @@ import java.util.List;
 public class JsonController {
     private static final Logger logger = Logger.getLogger(JsonController.class);
 
-
     public JsonController() {
     }
 
@@ -41,10 +40,7 @@ public class JsonController {
     private ApplicationContext appContext;
 
     private DownloadBookService downloadBookService;
-
-
     private List<Book> bookList = null;
-
 
     @PostConstruct
     public void init() {
@@ -56,45 +52,35 @@ public class JsonController {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
-
     @ResponseBody
     @RequestMapping(value = "/book", produces = {"application/json; charset=UTF-8"})
-    public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex)
-
-
-    {
-
+    public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex) {
         Book book = null;
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
-
         } else {
             book = bookList.get(0);
         }
-
         downloadBookService = (DownloadBookService) appContext.getBean("downloadBookService", String.valueOf(book.getBookId()));
 
-        System.out.println(jsonWrappingServise.getJsonString(book));
         try {
             downloadBookService.download();
 
         } catch (Exception e) {
             logger.error("Exception during downloading book list", e);
+            throw new RuntimeException(e);
         }
-
-
         return jsonWrappingServise.getJsonString(book);
-
     }
 
     @ResponseBody
     @RequestMapping(value = "/download")
     public void downloadBookJpg() {
-
         try {
             downloadBookService.download();
         } catch (Exception e) {
             logger.error("Exception during downloading book scans", e);
+            throw new RuntimeException(e);
         }
 
     }

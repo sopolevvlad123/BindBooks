@@ -52,12 +52,11 @@ public class IrbisDaoImpl implements IrbisDao {
             irbisRecord64.addField("951", "^B1^I" + url + "^T.");
             irbisClient64.writeRecord(irbisRecord64, false, false);
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("could not set url");
+            throw new RuntimeException(e);
         } finally {
             irbisClient64.disconnect();
         }
-
 
     }
 
@@ -70,11 +69,9 @@ public class IrbisDaoImpl implements IrbisDao {
     @Override
     public BookIrbis getBookIrbis(int mfn) {
 
+        IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
 
-        IrbisClient64 irbisClient64  = irbisClientFactory.getIrbisClient();
-
-
-         BookIrbis bookIrbis = null;
+        BookIrbis bookIrbis = null;
         try {
             irbisClient64.connect();
             IrbisRecord64 irbisRecord64 = irbisClient64.readRecord(mfn, false);
@@ -84,12 +81,9 @@ public class IrbisDaoImpl implements IrbisDao {
             bookIrbis.setLibDescription(resultData);
             resultData = irbisClient64.readFormatedRecord(mfn, "@FULLW_TEST");
             bookIrbis.setFormatInfo(resultData);
-
-
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("could not get IRBIS book");
-
+            throw new RuntimeException(e);
         } finally {
             irbisClient64.disconnect();
         }
@@ -107,9 +101,7 @@ public class IrbisDaoImpl implements IrbisDao {
     public List<BookIrbisHtml> find(String find) {
 
         IrbisClient64 irbisClient64 = irbisClientFactory.getIrbisClient();
-
         List<BookIrbisHtml> resultList = new ArrayList<>();
-
         BookIrbisHtml bookIrbisHtml;
         String html;
 
@@ -123,16 +115,12 @@ public class IrbisDaoImpl implements IrbisDao {
                 bookIrbisHtml = new BookIrbisHtml(mfn, html);
                 resultList.add(bookIrbisHtml);
             }
-
         } catch (Exception e) {
-
-            e.printStackTrace();
             logger.error("could not  find book", e);
+            throw new RuntimeException(e);
         } finally {
             irbisClient64.disconnect();
         }
         return resultList;
     }
-
-
 }

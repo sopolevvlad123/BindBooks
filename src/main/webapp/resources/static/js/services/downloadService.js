@@ -2,9 +2,9 @@
  * Created by pc8 on 27.11.15.
  */
 
-app.service('downloadService', function($http){
+app.service('downloadService', function ($http) {
 
-    this.download = function(){
+    this.download = function () {
 
         $http.get('http://10.251.0.21:8080/download')
             .success(function (data) {
@@ -13,6 +13,5 @@ app.service('downloadService', function($http){
                 return err;
             });
     }
-
 
 });

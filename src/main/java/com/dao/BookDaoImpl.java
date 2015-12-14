@@ -28,7 +28,6 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         setSessionFactory(HibernateService.createSessionFactory());
     }
 
-
     /**
      * Metod returns Book by id
      *
@@ -42,8 +41,8 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
             book = (Book) closeableSession.getSession().createCriteria(Book.class).add(Restrictions.eq("bookId", id)).uniqueResult();
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("could not get book by id", e);
+            throw new RuntimeException(e);
         }
         return book;
     }
@@ -61,10 +60,9 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         // try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
         try (CloseableSession closeableSession = new CloseableSession(getSessionFactory().openSession())) {
             bookList = closeableSession.getSession().createCriteria(Book.class).add(Restrictions.isNull("mfn")).addOrder(Order.asc("bookId")).list();
-
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("could not get book list", e);
+            throw new RuntimeException(e);
         }
         return bookList;
     }
@@ -88,10 +86,10 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
-                logger.error("could not update mfn", e);
             }
+            logger.error("could not update mfn", e);
+            throw new RuntimeException(e);
         }
-
     }
 
     /**
@@ -113,10 +111,10 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
-                logger.error("could not get book's name", e);
             }
+            logger.error("could not get book's name", e);
+            throw new RuntimeException(e);
         }
-
     }
 
     /**
@@ -148,8 +146,9 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
-                logger.error("could not update book", e);
             }
+            logger.error("could not update book", e);
+            throw new RuntimeException(e);
         }
 
     }

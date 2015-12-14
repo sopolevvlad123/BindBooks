@@ -19,10 +19,10 @@ public class FileService {
     /**
      * This method deletes all file from directory of books
      */
-    public void  deleteAllFiles(){
+    public void deleteAllFiles() {
         File file = new File(DIRECTORY);
-        for(File f : file.listFiles()) {
-            if (!f.getName().equals("1")){
+        for (File f : file.listFiles()) {
+            if (!f.getName().equals("1")) {
                 deleteFile(f);
             }
         }
@@ -40,7 +40,7 @@ public class FileService {
             }
         }
         if (!file.delete()) {
-          //NEED LOGGING
+            //NEED LOGGING
         }
     }
 

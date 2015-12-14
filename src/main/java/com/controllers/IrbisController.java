@@ -26,7 +26,6 @@ import org.apache.log4j.*;
 public class IrbisController {
     private static final Logger logger = Logger.getLogger(IrbisController.class);
 
-
     @Autowired
     private IrbisService irbisService;
     @Autowired
@@ -45,13 +44,12 @@ public class IrbisController {
         List<BookIrbisHtml> bookIrbisHtmlList = null;
         try {
             bookIrbisHtmlList = irbisService.getSearchResBookHtml(searchExpr);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             logger.error("Wrong encoding, Amigo", e);
+            throw new RuntimeException(e);
         }
         String result = jsonWrappingServise.getJsonIrbisBookHtml(bookIrbisHtmlList);
         return result;
-
     }
 
 }
