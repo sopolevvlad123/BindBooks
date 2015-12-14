@@ -20,7 +20,7 @@ public class MainController {
     @Autowired
     private BookService bookService;
      @RequestMapping(value = "/", method = RequestMethod.GET)
-     public String printWelcome(Model model) {
+     public String getHome(Model model) {
          List<Book> bookList= bookService.getAllBooks();
          model.addAttribute("bookList",bookList);
          return "static/index.html";
