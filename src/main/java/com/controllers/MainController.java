@@ -13,20 +13,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@SessionAttributes("bookList")
+@SessionAttributes(types = BookService.class)
 public class MainController {
 
     @Autowired
     private BookService bookService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String printWelcome(Model model) {
+    public String printWelcome(Model model,HttpSession session) {
         List<Book> bookList = bookService.getAllBooks();
         System.out.println(bookList.size());
         model.addAttribute("bookList", bookList);
+        model.addAttribute(new BookService());
 
         return "static/index.html";
     }

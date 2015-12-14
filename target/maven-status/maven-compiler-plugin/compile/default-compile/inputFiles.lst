@@ -5,6 +5,7 @@
 /home/pc8/sadfsdfa/src/main/java/com/MainTest.java
 /home/pc8/sadfsdfa/src/main/java/com/dao/BookDaoImpl.java
 /home/pc8/sadfsdfa/src/main/java/com/service/FileService.java
+/home/pc8/sadfsdfa/src/main/java/com/filters/CatchErrorFilter.java
 /home/pc8/sadfsdfa/src/main/java/com/service/HibernateService.java
 /home/pc8/sadfsdfa/src/main/java/com/entity/Book.java
 /home/pc8/sadfsdfa/src/main/java/com/irbis/IrbisField64.java
@@ -21,6 +22,7 @@
 /home/pc8/sadfsdfa/src/main/java/com/irbis/IrbisSubField64.java
 /home/pc8/sadfsdfa/src/main/java/com/irbis/IrbisRecord64.java
 /home/pc8/sadfsdfa/src/main/java/com/irbis/TextRecordReader.java
+/home/pc8/sadfsdfa/src/main/java/com/service/test.java
 /home/pc8/sadfsdfa/src/main/java/com/service/IrbisRecordService.java
 /home/pc8/sadfsdfa/src/main/java/com/controllers/MainController.java
 /home/pc8/sadfsdfa/src/main/java/com/irbis/ServerAnswerHeader.java
@@ -28,7 +30,6 @@
 /home/pc8/sadfsdfa/src/main/java/com/service/IrbisService.java
 /home/pc8/sadfsdfa/src/main/java/com/service/UrlSevice.java
 /home/pc8/sadfsdfa/src/main/java/com/entity/BookIrbisHtml.java
-/home/pc8/sadfsdfa/src/main/java/com/controllers/JpgDownloadController.java
 /home/pc8/sadfsdfa/src/main/java/com/irbis/Main.java
 /home/pc8/sadfsdfa/src/main/java/com/service/IrbisClientFactory.java
 /home/pc8/sadfsdfa/src/main/java/com/controllers/BindController.java

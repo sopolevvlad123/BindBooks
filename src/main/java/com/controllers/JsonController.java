@@ -49,12 +49,12 @@ public class JsonController {
 
     @ResponseBody
     @RequestMapping(value = "/book", produces = {"application/json; charset=UTF-8"})
-
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex
             , HttpSession session, Model model) {
-
+        System.out.println("/book");
+        System.out.println(session.getAttribute("bookServise"));
         bookList = (List<Book>) session.getAttribute("bookList");
-
+        System.out.println(bookList);
         Book book = null;
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
