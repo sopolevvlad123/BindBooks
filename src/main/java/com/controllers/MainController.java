@@ -23,14 +23,11 @@ public class MainController {
     @Autowired
     private BookService bookService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String printWelcome(Model model,HttpSession session) {
-        List<Book> bookList = bookService.getAllBooks();
-        System.out.println(bookList.size());
-        model.addAttribute("bookList", bookList);
-        model.addAttribute(new BookService());
-
-        return "static/index.html";
+     @RequestMapping(value = "/", method = RequestMethod.GET)
+     public String getHome(Model model) {
+         List<Book> bookList= bookService.getAllBooks();
+         model.addAttribute("bookList",bookList);
+         return "static/index.html";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
