@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by pc9 on 01.12.15.
@@ -42,17 +44,21 @@ public class BindController {
 
     @ResponseBody
     @RequestMapping(value = "/bindBook")
+
     public void doBind(@RequestParam(value = "bookId", required = true) Integer bookId,
-                       @RequestParam(value = "mfn", required = true) Integer mfn)
+                       @RequestParam(value = "mfn", required = true) Integer mfn, HttpSession session)
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
+
         BookDao bookDao = daoService.getBookDao();
         IrbisDao irbisDao = daoService.getIrbisDao();
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
 
         /*bookDao.updateBook(bookId, bookIrbis);
         irbisDao.setUrl(urlSevice.getUrl(bookId)), mfn);*/
+
         fileService.deleteFile(new File(DIRECTORY + bookId));
+        removeBookFromList(session);
 
         if (logger.isDebugEnabled()) {
             logger.debug("Book bound: post bookId = " + bookId + ", IRBIS mfn = " + mfn);
@@ -62,16 +68,32 @@ public class BindController {
 
     @ResponseBody
     @RequestMapping(value = "/noBook")
-    public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId)
-            throws IOException, FTPAbortedException, FTPDataTransferException,
-            FTPException, FTPListParseException, FTPIllegalReplyException {
-//        BookDao bookDao = daoService.getBookDao();
-//        bookDao.updateMfn(bookId, -1);
+    public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId, HttpSession session)
+            throws IOException, FTPAbortedException, FTPDataTransferException, FTPException, FTPListParseException, FTPIllegalReplyException {
+        /*BookDao bookDao = daoService.getBookDao();
+        bookDao.updateMfn(bookId, -1);*/
+
         fileService.deleteFile(new File(DIRECTORY + bookId));
+        removeBookFromList(session);
+
         if (logger.isDebugEnabled()) {
             logger.debug("No march found for bookId" + bookId);
         }
 
+    }
+
+    private int getBookIndex(HttpSession session) {
+        int res = ((Integer) session.getAttribute("bookIndex"));
+        if (res < 0) {
+            return 0;
+        } else {
+            return res;
+        }
+    }
+
+    private void removeBookFromList(HttpSession session) {
+        List<Book> bookList = (List<Book>) session.getAttribute("bookList");
+        bookList.remove(getBookIndex(session));
     }
 
 }

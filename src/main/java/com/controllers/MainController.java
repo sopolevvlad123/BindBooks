@@ -4,24 +4,30 @@ package com.controllers;
  * Created by pc9 on 24.11.15.
  */
 
+import com.entity.Book;
+import com.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import java.util.List;
 
 @Controller
+@SessionAttributes("bookList")
 public class MainController {
 
-    public ModelAndView getWelcome() {
-        ModelAndView model = new ModelAndView("welcome");
-        model.addObject("msg", "Hello Spring MVC + Log4j");
-        return model;
-    }
+    @Autowired
+    private BookService bookService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String printWelcome() {
+    public String printWelcome(Model model) {
+        List<Book> bookList = bookService.getAllBooks();
+        System.out.println(bookList.size());
+        model.addAttribute("bookList", bookList);
+
         return "static/index.html";
     }
 

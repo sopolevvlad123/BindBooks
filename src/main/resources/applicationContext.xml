@@ -69,8 +69,4 @@
         </property>
     </bean>
 
-    <!--<bean id="dataDao" class="com.dao.BookDaoImpl">-->
-        <!--<property name="sessionFactory" ref="sessionFactory" />-->
-    <!--</bean>-->
-
 </beans>

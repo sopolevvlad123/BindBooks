@@ -2,6 +2,7 @@ package com.service;
 
 import com.entity.Book;
 import com.entity.BookIrbisHtml;
+import org.json.JSONString;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,11 @@ public class JsonWrappingServise {
 
         org.json.JSONArray jsonArray = new org.json.JSONArray(bookHtmlList);
         return jsonArray.toString();
+
+    }
+    public JSONString getJsonTest(String txt){
+        org.json.JSONString jString = (JSONString) new org.json.JSONTokener(txt);
+        return jString;
 
     }
 }

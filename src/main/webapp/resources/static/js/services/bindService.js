@@ -5,6 +5,7 @@
 app.service('bindService', function ($http) {
 
     this.bind = function (bookId, mfn) {
+
         console.log("bind, bookId =  " + bookId + "and mfn = " + mfn);
         $http.get('http://10.251.0.21:8080/bindBook', {
 
