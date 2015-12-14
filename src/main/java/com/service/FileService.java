@@ -28,7 +28,7 @@ public class FileService {
         }
     }
 
-    private void deleteFile(File file) {
+    public void deleteFile(File file) {
         if (!file.exists())
             return;
         if (file.isDirectory()) {

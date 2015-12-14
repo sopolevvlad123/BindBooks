@@ -19,4 +19,13 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+<filter>
+    <filter-name>catchFilter</filter-name>
+    <filter-class>com.filters.CatchErrorFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>catchFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
 </web-app>

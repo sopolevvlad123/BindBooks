@@ -55,7 +55,7 @@ app.controller('bookController', ['$scope', '$http', 'bookDesc' , 'downloadServi
     $scope.addImage = function () {
         for (var i = 0; i < 10; i++) {
             $scope.photos.push({
-                src: 'http://10.251.0.21:8080/static/'+ $scope.book.bookId  +'/'
+                src: 'http://10.251.0.21:8080/static/books/'+ $scope.book.bookId  +'/'
                 + ($scope._Index + 1 + i) + '.jpg'
             });
         }
