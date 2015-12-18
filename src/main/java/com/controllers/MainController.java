@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
 import java.util.List;
 
 @Controller
@@ -19,11 +20,16 @@ import java.util.List;
 public class MainController {
     @Autowired
     private BookService bookService;
-     @RequestMapping(value = "/", method = RequestMethod.GET)
+     @RequestMapping(value = "/main", method = RequestMethod.GET)
      public String getHome(Model model) {
          List<Book> bookList= bookService.getAllBooks();
          model.addAttribute("bookList",bookList);
          return "static/index.html";
+    }
+
+    @RequestMapping(value = "/")
+    public String getHello() {
+        return "static/login.html";
     }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)

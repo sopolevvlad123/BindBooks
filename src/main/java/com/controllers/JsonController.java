@@ -61,6 +61,8 @@ public class JsonController {
         bookList = (List<Book>) session.getAttribute("bookList");
         System.out.println("jsonWrap bookList size ===="+bookList.size());
         Book book = null;
+        System.out.println("json == "+session);
+
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
 

@@ -42,7 +42,7 @@ h2{
     border: 2px;
     border-radius: 10px;
     width: 96%;
-    margin-left: 1%;
+   /* margin-left: 1%;*/
     box-shadow:1px 1px 4px #698B69;
 }
 
@@ -73,7 +73,6 @@ h2{
     height: 98%;
     margin-top: 1%;
     display: block;
-
 }
 .postbookInfo{
     width: 96% !important;
@@ -117,9 +116,6 @@ h2{
 .nextBook{
     margin-right: 7%;
     float: right;
-
-
-
 }
 
 .irbisbookRewind{
@@ -148,6 +144,7 @@ h2{
 
 #bindButton{
     background-color: #c91241;
+    color: whitesmoke;
 }
 #rejectButton{
     background-color: #fbd977;
