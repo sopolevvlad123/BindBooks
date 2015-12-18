@@ -47,14 +47,23 @@ public class JsonController {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
+    /*@PostConstruct
+    public void init(HttpSession session) {
+        bookList = (List<Book>) session.getAttribute("bookList");
+        System.out.println("json");
+    }*/
+
     @ResponseBody
     @RequestMapping(value = "/book", produces = {"application/json; charset=UTF-8"})
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex
             , HttpSession session, Model model) {
         System.out.println("/book");
         System.out.println(session.getAttribute("bookServise"));
+        System.out.println("jsonSession" + session);
+
         bookList = (List<Book>) session.getAttribute("bookList");
-        System.out.println(bookList);
+
+
         Book book = null;
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
