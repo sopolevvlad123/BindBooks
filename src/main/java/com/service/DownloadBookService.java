@@ -114,7 +114,6 @@ public class DownloadBookService {
         return false;
     }
 
-
     private boolean checkDirectory(String dir, String file) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
         if (ftpClientAdapter != null) {
             ftpClientAdapter.changeDirectory(dir);
@@ -123,7 +122,7 @@ public class DownloadBookService {
                 return true;
             }
         } else {
-            //something
+           throw new RuntimeException("ftpClientAdapter is null ");
         }
         ftpClientAdapter.changeDirectoryUp();
         return false;

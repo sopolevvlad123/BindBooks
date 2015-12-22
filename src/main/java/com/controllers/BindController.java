@@ -54,8 +54,8 @@ public class BindController {
         IrbisDao irbisDao = daoService.getIrbisDao();
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
 
-        /*bookDao.updateBook(bookId, bookIrbis);
-        irbisDao.setUrl(urlSevice.getUrl(bookId)), mfn);*/
+        bookDao.updateBook(bookId, bookIrbis);
+        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
 
         fileService.deleteFile(new File(DIRECTORY + bookId));
         removeBookFromList(session);
@@ -70,14 +70,14 @@ public class BindController {
     @RequestMapping(value = "/noBook")
     public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId, HttpSession session)
             throws IOException, FTPAbortedException, FTPDataTransferException, FTPException, FTPListParseException, FTPIllegalReplyException {
-        /*BookDao bookDao = daoService.getBookDao();
-        bookDao.updateMfn(bookId, -1);*/
+        BookDao bookDao = daoService.getBookDao();
+        bookDao.updateMfn(bookId, -1);
 
         fileService.deleteFile(new File(DIRECTORY + bookId));
         removeBookFromList(session);
 
         if (logger.isDebugEnabled()) {
-            logger.debug("No march found for bookId" + bookId);
+            logger.debug("No march found for bookId " + bookId);
         }
 
     }

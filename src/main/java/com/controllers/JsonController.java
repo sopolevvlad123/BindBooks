@@ -65,6 +65,8 @@ public class JsonController {
 
 
         Book book = null;
+        System.out.println("json == "+session);
+
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
         } else {
