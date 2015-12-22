@@ -8,15 +8,16 @@
 
     <http auto-config="true">
         <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-        <intercept-url pattern="/main**" access="ROLE_USER" />
+
+        <intercept-url pattern="/*" access="ROLE_USER" />
         <form-login
-                login-page="/static/login.html"
+                login-page="/login"
                 login-processing-url="/j_spring_security_check"
-                default-target-url="/main"
-                authentication-failure-url="/static/login.html"
+                default-target-url="/"
+                authentication-failure-url="/login"
                 username-parameter="j_username"
                 password-parameter="j_password" />
-        <logout logout-success-url="/static/login.html" />
+        <logout logout-success-url="/login" />
         <!-- disable csrf protection -->
         <!--<csrf/>-->
     </http>

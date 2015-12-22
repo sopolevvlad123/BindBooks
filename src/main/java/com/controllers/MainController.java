@@ -20,15 +20,15 @@ import java.util.List;
 public class MainController {
     @Autowired
     private BookService bookService;
-     @RequestMapping(value = "/main", method = RequestMethod.GET)
+     @RequestMapping(value = "/", method = RequestMethod.GET)
      public String getHome(Model model) {
          List<Book> bookList= bookService.getAllBooks();
          model.addAttribute("bookList",bookList);
          return "static/index.html";
     }
 
-    @RequestMapping(value = "/")
-    public String getHello() {
+    @RequestMapping(value = "/login")
+    public String getLogin() {
         return "static/login.html";
     }
 

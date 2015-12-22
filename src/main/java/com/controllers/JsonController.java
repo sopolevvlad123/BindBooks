@@ -59,31 +59,21 @@ public class JsonController {
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex
                                ,HttpSession session, Model model) {
         bookList = (List<Book>) session.getAttribute("bookList");
-        System.out.println("jsonWrap bookList size ===="+bookList.size());
         Book book = null;
-        System.out.println("json == "+session);
 
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
-
         } else {
             book = bookList.get(0);
         }
         model.addAttribute("bookIndex",bookIndex);
         downloadBookService = (DownloadBookService) appContext.getBean("downloadBookService", String.valueOf(book.getBookId()));
-        System.out.println("jsonbook Index"+ bookIndex);
-        System.out.println("bookList json serv"+bookList.get(bookIndex));
-        System.out.println(jsonWrappingServise.getJsonString(book));
         try {
             downloadBookService.download();
-
         } catch (Exception e) {
             logger.error("Exception during downloading book list", e);
         }
-
-
         return jsonWrappingServise.getJsonString(book);
-
     }
 
     @ResponseBody
@@ -95,7 +85,6 @@ public class JsonController {
         } catch (Exception e) {
             logger.error("Exception during downloading book scans", e);
         }
-
     }
 
 }
