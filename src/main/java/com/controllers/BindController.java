@@ -24,6 +24,8 @@ import java.util.List;
 /**
  * Created by pc9 on 01.12.15.
  */
+
+
 @Controller
 public class BindController {
     private static final Logger logger = Logger.getLogger(BindController.class);
@@ -49,13 +51,13 @@ public class BindController {
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
 
-        System.out.println("bindBook; bookId = " + bookId + ", mfn = " + mfn);
+
         BookDao bookDao = daoService.getBookDao();
         IrbisDao irbisDao = daoService.getIrbisDao();
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
 
-        /*bookDao.updateBook(bookId, bookIrbis);
-        irbisDao.setUrl(urlSevice.getUrl(bookId)), mfn);*/
+        bookDao.updateBook(bookId, bookIrbis);
+        irbisDao.setUrl(urlSevice.getUrl(bookId)), mfn);
 
         fileService.deleteFile(new File(DIRECTORY + bookId));
         removeBookFromList(session);
@@ -72,8 +74,8 @@ public class BindController {
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException
              {
-        /*BookDao bookDao = daoService.getBookDao();
-        bookDao.updateMfn(bookId, -1);*/
+        BookDao bookDao = daoService.getBookDao();
+        bookDao.updateMfn(bookId, -1);
 
         fileService.deleteFile(new File(DIRECTORY + bookId));
         removeBookFromList(session);
@@ -83,6 +85,8 @@ public class BindController {
         }
 
     }
+
+
 
 
     private  int getBookIndex(HttpSession session){

@@ -20,16 +20,6 @@ h2{
   width: 250px !important;
 }
 
-.logo{
-    padding: 0;
-}
-
-
-.headText {
-    text-align: center;
-    margin-right: auto !important;
-    margin-left: auto !important;
-}
 .exitButton{
     top: 8px;
     float: right !important;
@@ -45,7 +35,6 @@ h2{
 }
 .btnStyle{
     background-color: #3CB371;
-
 }
 .btnStyle:hover{
     background-color: #F4A460;
@@ -102,6 +91,7 @@ h2{
     border-radius: 5px;
     height: 90px;
     overflow: auto;
+    margin-left: 2%;
 }
 .irbisbookInfo{
     width: 96%;
@@ -129,21 +119,17 @@ h2{
 }
 
 .prevBook{
-
-    margin-left: 7%;
     float: left;
-
 }
-.nextBook{
-    margin-right: 7%;
+.nextBook {
     float: right;
 }
 
 .irbisbookRewind{
-    margin-top: 20px;
+    position: absolute !important;
+    bottom: 18%;
 }
-.searchForm{
-}
+
 .searchResult{
     width: 98%;
     margin-top: 5px;
@@ -154,7 +140,7 @@ h2{
 
 .bindGroup{
     position: absolute !important;
-    bottom: 5%;
+    bottom: 7%;
 }
 #bindButton{
     background-color: #c91241;
