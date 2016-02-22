@@ -44,6 +44,8 @@ public class JsonController {
 
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
+        System.out.println("JsonController setHeader !!!!!!!!");
+
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
@@ -58,14 +60,12 @@ public class JsonController {
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex
             , HttpSession session, Model model) {
         System.out.println("/book");
-        System.out.println(session.getAttribute("bookServise"));
+        System.out.println("session.getAttribute(bookServise) "+session.getAttribute("bookServise"));
         System.out.println("jsonSession" + session);
 
         bookList = (List<Book>) session.getAttribute("bookList");
 
-
         Book book = null;
-        System.out.println("json == "+session);
 
         if (bookIndex != null) {
             book = bookList.get(bookIndex);
@@ -76,7 +76,6 @@ public class JsonController {
         downloadBookService = (DownloadBookService) appContext.getBean("downloadBookService", String.valueOf(book.getBookId()));
         try {
             downloadBookService.download();
-
         } catch (Exception e) {
             logger.error("Exception during downloading book list", e);
             throw new RuntimeException(e);
@@ -93,7 +92,6 @@ public class JsonController {
             logger.error("Exception during downloading book scans", e);
             throw new RuntimeException(e);
         }
-
     }
 
 }

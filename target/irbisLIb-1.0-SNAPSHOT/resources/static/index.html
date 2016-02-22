@@ -29,23 +29,25 @@
 
 <div class="container-fluid all" ng-controller="bookController" data-ng-init="init()">
     <header>
-        <nav class="navbar  topNav" role="navigation">
-            <div class="container">
-                <div class="navbar-header logo">
-                    <img src="static/img/logo.png">
+        <nav class="navbar  topNav"  role="navigation">
+            <div class="container" style="height:50px">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-lg-4 col-sd-4  col-md-4" style="top: 10%">
+                        <div class="navbar-header logo ">
+                            <img src="static/img/ZIT.png">
+
+                        </div>
+                    </div>
+               <!-- <div class="col-xs-6 col-sm-6 col-lg-6  col-sd-6  col-md-6  headText" >
+                    <h2>AZAZAZAZAZAZAZA</h2>
+                </div>-->
+
+                <div class="col-md-2 exitButton">
+                    <form action="/j_spring_security_check">
+                        <button class="btn btn-def btn-block ">Выйти</button>
+                    </form>
                 </div>
-
-                <div class="col-md-4">
-                    <p>Ирбис сервис</p>
-                </div>
-
-
-
-                <div class="col-md-2" style="float: right">
-                    <a href="/j_spring_security_logout">
-                        <button class="btn btn-def btn-block">Выйти</button>
-                    </a>
-                </div>
+            </div>
             </div>
 
 
@@ -70,8 +72,8 @@
                     <div class="col-md-12 slider">
                         <img ng-repeat="photo in photos" class="slide" ng-swipe-right="showPrev()"
                              ng-swipe-left="showNext()" ng-show="isActive($index)" ng-src="{{photo.src}}"/>
-                        <a class="arrow prev" href="#" ng-click="showPrev()"></a>
-                        <a class="arrow next" href="#" ng-click="showNext()"></a>
+                        <a class="arrow prev"  ng-click="showPrev()"></a>
+                        <a class="arrow next"  ng-click="showNext()"></a>
                     </div>
                 </div>
                 <!--Post book page viewer end-->
@@ -90,6 +92,7 @@
         <!--Right side end-->
 
         <!--Left side -->
+       
         <div class="col-md-6 contentWrapper" ng-controller="irbisCtrl">
             <div class="col-md-12 irbis ">
                 <!--IRBIS search form-->
@@ -104,15 +107,15 @@
                 <!--IRBIS search form end-->
 
                 <!--Search result num-->
+                <div class="container " style="width:96%;">
+                    <div class="col-md-5 col-sm-5 col-lg-5  col-sd-5   searchResult fitterTmp"style="float: left">
+                        <p>Найдено записей: {{arrIrbis.length}}</p>
+                    </div>
 
-                <div class="col-md-5 searchResult fitter" style="float: left">
-                    <p>Найдено записей: {{arrIrbis.length}}</p>
+                    <div class="col-md-5 col-sm-5 col-lg-5  col-sd-5 searchResult fitterTmp" style="float: right">
+                        <p>Текущая запись: {{indexIrbis+1}}</p>
+                    </div>
                 </div>
-
-                <div class="col-md-5 searchResult fitter" style="float: right">
-                    <p>Текущая запись: {{indexIrbis+1}}</p>
-                </div>
-
 
                 <!--Search result num end-->
 
@@ -165,6 +168,7 @@
                 <!--Bind book button group end-->
             </div>
         </div>
+        
         <!--Left side end-->
 
     </div>

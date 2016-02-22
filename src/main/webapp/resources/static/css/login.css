@@ -16,3 +16,9 @@ div.well{
     max-width: 400px;
     padding: 40px;
 }
+.enterButton{
+    background-color: #FFC173;
+}
+.enterButton:hover{
+    background-color: #ffaa40;
+}

@@ -57,7 +57,7 @@ public class BookDaoImpl extends HibernateDaoSupport implements BookDao {
 
         List<Book> bookList = null;
 
-        // try (CloseableSession closeableSession = new CloseableSession(HibernateService.createSessionFactory().openSession())) {
+
         try (CloseableSession closeableSession = new CloseableSession(getSessionFactory().openSession())) {
             bookList = closeableSession.getSession().createCriteria(Book.class).add(Restrictions.isNull("mfn")).addOrder(Order.asc("bookId")).list();
         } catch (Exception e) {

@@ -13,27 +13,39 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
 @SessionAttributes("bookList")
 public class MainController {
 
+    @ModelAttribute
+    public void setVaryResponseHeader(HttpServletResponse response) {
+        System.out.println("MainController setHeader !!!!!!!!");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+    }
+
 
     @Autowired
     private BookService bookService;
 
-     @RequestMapping(value = "/main", method = RequestMethod.GET)
-     public String getHome(Model model) {
+     @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getHome(Model model,HttpSession session) {
 
          List<Book> bookList= bookService.getAllBooks();
          model.addAttribute("bookList",bookList);
-
+         System.out.println("book list from /" + bookList.size());
+         System.out.println("sess from /"+session
+         );
          return "static/index.html";
     }
 
-    @RequestMapping(value = "/")
-    public String getHello() {
+    @RequestMapping(value = "/login")
+    public String getLogin() {
+        System.out.println("!!!!!!!!!!!!!!!MainController");
         return "static/login.html";
     }
 

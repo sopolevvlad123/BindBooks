@@ -7,7 +7,7 @@ app.service('bindService', function ($http) {
     this.bind = function (bookId, mfn) {
 
         console.log("bind, bookId =  " + bookId + "and mfn = " + mfn);
-        $http.get('http://10.251.0.21:8080/bindBook', {
+        $http.get('http://localhost:8080/bindBook', {
 
             params: {
                 bookId: bookId,
@@ -22,7 +22,7 @@ app.service('bindService', function ($http) {
     }
 
     this.noBook = function (bookId) {
-        $http.get('http://10.251.0.21:8080/noBook', {
+        $http.get('http://localhost:8080/noBook', {
             params: {
                 bookId: bookId
             }
