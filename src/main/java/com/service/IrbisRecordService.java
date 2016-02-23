@@ -30,7 +30,7 @@ public class IrbisRecordService {
 
 
     /**
-     * Method convert IrtbisRecord to BookIrbis
+     * Method converts IrtbisRecord to BookIrbis
      *
      * @return
      */
@@ -307,10 +307,10 @@ public class IrbisRecordService {
             resultData = irbisService.filterAnswer(resultData);
         } catch (Exception e) {
 
-          e.printStackTrace();
-          logger.error("could not get IRBIS book escription'",e);
-      }
-        return  resultData;
+            logger.error("could not get IRBIS book escription'", e);
+            throw new RuntimeException(e);
+        }
+        return resultData;
 
     }
 }

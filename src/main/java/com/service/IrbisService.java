@@ -20,46 +20,54 @@ public class IrbisService {
 
     public IrbisService() {
     }
+
     @Autowired
     private IrbisDao irbisDao;
+
     /**
-     * Method remove needless data from answer
+     * Method removes needless data from answer
+     *
      * @return
      */
-    public String filterAnswer(String answer){
+    public String filterAnswer(String answer) {
 
 
-        if (answer.contains("IRBIS_BINARY_DATA")){
+        if (answer.contains("IRBIS_BINARY_DATA")) {
             int index = answer.indexOf("IRBIS_BINARY_DATA");
-            answer = answer.substring(0,index);
+            answer = answer.substring(0, index);
         }
         return answer;
     }
 
     /**
-     * This method remove needless data from list of answer
+     * This method removes needless data from list of answer
+     *
      * @param answerList
      * @return
      */
-    public List<String> filterListAnswer(List<String> answerList){
+    public List<String> filterListAnswer(List<String> answerList) {
         List<String> resultList = new ArrayList<>();
-         for (String str : answerList) {
-             if (str.contains("IRBIS_BINARY_DATA")) {
-                 break;
-             }
-              resultList.add(str);
-         }
+        for (String str : answerList) {
+            if (str.contains("IRBIS_BINARY_DATA")) {
+                break;
+            }
+            resultList.add(str);
+        }
         return resultList;
     }
 
+
+    /**
+     * method returns search result
+     * @param searchExpr
+     * @return
+     * @throws UnsupportedEncodingException
+     */
     public List<BookIrbisHtml> getSearchResBookHtml(String searchExpr) throws UnsupportedEncodingException {
 
-        String expr =  exprEncoding(searchExpr);
+        String expr = exprEncoding(searchExpr);
 
-        List<BookIrbisHtml> bookIrbisHtmlList =  irbisDao.find(expr);
-
-
-
+        List<BookIrbisHtml> bookIrbisHtmlList = irbisDao.find(expr);
         return bookIrbisHtmlList;
     }
 

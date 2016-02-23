@@ -733,8 +733,7 @@ public class IrbisClient64 {
 
         sv.activeClientsCount = Integer.parseInt(answer.get(2));
     } catch ( NumberFormatException e){
-        System.out.println(answer.get(2));
-        throw  e;
+         throw  e;
     }
         sv.maxConnections = Integer.parseInt(answer.get(3));
 

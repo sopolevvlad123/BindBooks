@@ -16,26 +16,32 @@ public class JsonWrappingServise {
     public JsonWrappingServise() {
     }
 
-    public String getJsonString(Book book){
+    /**
+     * method converts Book obj to Json string
+     * @param book
+     * @return
+     */
+    public String getJsonString(Book book) {
         JSONObject jsObject = new JSONObject();
 
-        jsObject.put("name",book.getEname());
-        jsObject.put("year",book.getYear());
+        jsObject.put("name", book.getEname());
+        jsObject.put("year", book.getYear());
         jsObject.put("author", book.getAuthor());
-        jsObject.put("bookId",book.getBookId());
+        jsObject.put("bookId", book.getBookId());
 
         return jsObject.toJSONString();
     }
 
-    public String getJsonIrbisBookHtml(List<BookIrbisHtml> bookHtmlList){
+    /**
+     * converts BookIrbisHtml obj to Json string
+     * @param bookHtmlList
+     * @return
+     */
+    public String getJsonIrbisBookHtml(List<BookIrbisHtml> bookHtmlList) {
 
-       org.json.JSONArray jsonArray = new org.json.JSONArray(bookHtmlList);
-       return jsonArray.toString();
+        org.json.JSONArray jsonArray = new org.json.JSONArray(bookHtmlList);
+        return jsonArray.toString();
 
     }
-    public JSONString getJsonTest(String txt){
-        org.json.JSONString jString = (JSONString) new org.json.JSONTokener(txt);
-        return jString;
 
-    }
 }

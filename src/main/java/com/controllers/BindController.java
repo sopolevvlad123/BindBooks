@@ -34,20 +34,34 @@ public class BindController {
     @Autowired
     private UrlSevice urlSevice;
     @Autowired
-    private FileService  fileService;
+    private FileService fileService;
 
     @Value("${directory}")
     private String DIRECTORY;
 
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin","*");
+        response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
+
+    /**
+     * method imports book info ftom IRBIS DB to the postgre DB
+     *  & bind link to page of current book at http://oldlib.nlu.edu.ua/
+     * @param bookId
+     * @param mfn
+     * @param session
+     * @throws IOException
+     * @throws FTPAbortedException
+     * @throws FTPDataTransferException
+     * @throws FTPException
+     * @throws FTPListParseException
+     * @throws FTPIllegalReplyException
+     */
     @ResponseBody
     @RequestMapping(value = "/bindBook")
-    public void doBind(@RequestParam(value ="bookId", required = true) Integer bookId,
-                         @RequestParam(value ="mfn", required = true) Integer mfn,HttpSession session)
+   public void doBind(@RequestParam(value = "bookId", required = true) Integer bookId,
+                       @RequestParam(value = "mfn", required = true) Integer mfn, HttpSession session)
             throws IOException, FTPAbortedException, FTPDataTransferException,
             FTPException, FTPListParseException, FTPIllegalReplyException {
 
@@ -57,49 +71,56 @@ public class BindController {
         BookIrbis bookIrbis = irbisDao.getBookIrbis(mfn);
 
         bookDao.updateBook(bookId, bookIrbis);
-        irbisDao.setUrl(urlSevice.getUrl(bookId)), mfn);
 
+        irbisDao.setUrl(urlSevice.getUrl(bookId), mfn);
         fileService.deleteFile(new File(DIRECTORY + bookId));
         removeBookFromList(session);
 
-        if(logger.isDebugEnabled()){
-            logger.debug("Book bound: post bookId = " + bookId + ", IRBIS mfn = " + mfn );
+        if (logger.isDebugEnabled()) {
+            logger.debug("Book bound: post bookId = " + bookId + ", IRBIS mfn = " + mfn);
         }
 
     }
 
+    /**
+     * method delete current book from list
+     * (for case when no match found)
+     * @param bookId
+     * @param session
+     * @throws IOException
+     * @throws FTPAbortedException
+     * @throws FTPDataTransferException
+     * @throws FTPException
+     * @throws FTPListParseException
+     * @throws FTPIllegalReplyException
+     */
     @ResponseBody
     @RequestMapping(value = "/noBook")
     public void resetBook(@RequestParam(value = "bookId", required = true) Integer bookId, HttpSession session)
-            throws IOException, FTPAbortedException, FTPDataTransferException,
-            FTPException, FTPListParseException, FTPIllegalReplyException
-             {
+            throws IOException, FTPAbortedException, FTPDataTransferException, FTPException, FTPListParseException, FTPIllegalReplyException {
         BookDao bookDao = daoService.getBookDao();
         bookDao.updateMfn(bookId, -1);
 
         fileService.deleteFile(new File(DIRECTORY + bookId));
         removeBookFromList(session);
 
-        if(logger.isDebugEnabled()){
-            logger.debug("No march found for bookId" + bookId);
+        if (logger.isDebugEnabled()) {
+            logger.debug("No march found for bookId " + bookId);
         }
 
     }
 
-
-
-
-    private  int getBookIndex(HttpSession session){
-        int res = ((Integer)session.getAttribute("bookIndex"));
-
-        if (res<0){
+    private int getBookIndex(HttpSession session) {
+        int res = ((Integer) session.getAttribute("bookIndex"));
+        if (res < 0) {
             return 0;
+        } else {
+            return res;
         }
-        else {return res;}
     }
 
-    private void removeBookFromList(HttpSession session){
-        List<Book> bookList =  (List<Book>) session.getAttribute("bookList");
+    private void removeBookFromList(HttpSession session) {
+        List<Book> bookList = (List<Book>) session.getAttribute("bookList");
         bookList.remove(getBookIndex(session));
     }
 

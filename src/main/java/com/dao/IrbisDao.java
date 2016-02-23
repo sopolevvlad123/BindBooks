@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface IrbisDao {
 
-        void setUrl(String url, int mfn);
-        BookIrbis getBookIrbis(int mfn);
-        List<BookIrbisHtml> find(String find);
+    void setUrl(String url, int mfn);
 
-        void setUrl(String url);
+    BookIrbis getBookIrbis(int mfn);
+
+    List<BookIrbisHtml> find(String find);
 }

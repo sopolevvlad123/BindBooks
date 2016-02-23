@@ -28,12 +28,6 @@ import java.util.List;
 public class JsonController {
     private static final Logger logger = Logger.getLogger(JsonController.class);
 
-
-    public JsonController() {
-    }
-
-    @Autowired
-    private BookService bookService;
     @Autowired
     private JsonWrappingServise jsonWrappingServise;
     @Autowired
@@ -43,22 +37,25 @@ public class JsonController {
 
     private List<Book> bookList = null;
 
-    /*@PostConstruct
-    public void init() {
-        this.bookList = bookService.getAllBooks();
-    }*/
-
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
     }
 
-
+    /**
+     * method returns Json string, that contains book info from postgre DB
+      *
+     * @param bookIndex
+     * @param session
+     * @param model
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/book", produces = {"application/json; charset=UTF-8"})
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex
-                               ,HttpSession session, Model model) {
+            , HttpSession session, Model model) {
         bookList = (List<Book>) session.getAttribute("bookList");
+
         Book book = null;
 
         if (bookIndex != null) {
@@ -66,24 +63,28 @@ public class JsonController {
         } else {
             book = bookList.get(0);
         }
-        model.addAttribute("bookIndex",bookIndex);
+        model.addAttribute("bookIndex", bookIndex);
         downloadBookService = (DownloadBookService) appContext.getBean("downloadBookService", String.valueOf(book.getBookId()));
         try {
             downloadBookService.download();
         } catch (Exception e) {
             logger.error("Exception during downloading book list", e);
+            throw new RuntimeException(e);
         }
         return jsonWrappingServise.getJsonString(book);
     }
 
+    /**
+     * method returns book images (10 images each time)  to the view side
+     */
     @ResponseBody
     @RequestMapping(value = "/download")
     public void downloadBookJpg() {
-
         try {
             downloadBookService.download();
         } catch (Exception e) {
             logger.error("Exception during downloading book scans", e);
+            throw new RuntimeException(e);
         }
     }
 

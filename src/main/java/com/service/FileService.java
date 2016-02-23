@@ -1,5 +1,6 @@
 package com.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.io.File;
  */
 @Service
 public class FileService {
+    private static final Logger logger = Logger.getLogger(FileService.class);
     public FileService() {
     }
 
@@ -19,15 +21,19 @@ public class FileService {
     /**
      * This method deletes all file from directory of books
      */
-    public void  deleteAllFiles(){
+    public void deleteAllFiles() {
         File file = new File(DIRECTORY);
-        for(File f : file.listFiles()) {
-            if (!f.getName().equals("1")){
+        for (File f : file.listFiles()) {
+            if (!f.getName().equals("1")) {
                 deleteFile(f);
             }
         }
     }
 
+    /**
+     * Method deletes file from directory
+     * @param file
+     */
     public void deleteFile(File file) {
         if (!file.exists())
             return;
@@ -40,7 +46,9 @@ public class FileService {
             }
         }
         if (!file.delete()) {
-          //NEED LOGGING
+            if (logger.isDebugEnabled()) {
+                logger.debug("File -- " + file +  " was not delete");
+            }
         }
     }
 

@@ -9,15 +9,11 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <properties>
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>1.7</jdk.version>
         <spring.version>3.2.13.RELEASE</spring.version>
         <jstl.version>1.2</jstl.version>
         <spring.securiry>3.2.0.RELEASE</spring.securiry>
     </properties>
-
-
-
-
 
     <dependencies>
 
@@ -159,7 +155,7 @@
                 <checksumPolicy>ignore</checksumPolicy>
             </releases>
 
-            <url>file:///home/pc9/WORK/Irbis/IrbisPostgreBindingService/lib/</url>
+            <url>file:///home/pc8/sadfsdfa/lib/</url>
         </repository>
     </repositories>
 

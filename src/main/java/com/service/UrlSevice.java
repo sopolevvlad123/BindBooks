@@ -12,16 +12,16 @@ public class UrlSevice {
 
     /**
      * Method returns url by id
+     *
      * @param bookId
      * @return
      */
-    public String getUrl(int bookId){
+    public String getUrl(int bookId) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("http://oldlib.nlu.edu.ua/index.php?r=preview%2Findex&book_id=");
         stringBuilder.append(bookId);
         return stringBuilder.toString();
     }
-
 
 
 }

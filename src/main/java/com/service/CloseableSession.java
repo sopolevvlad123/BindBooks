@@ -20,7 +20,6 @@ public class CloseableSession implements AutoCloseable {
         return session;
     }
 
-
     public void close() {
         session.close();
     }
