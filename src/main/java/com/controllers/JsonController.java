@@ -31,11 +31,9 @@ public class JsonController {
     @Autowired
     private JsonWrappingServise jsonWrappingServise;
     @Autowired
-    private ApplicationContext appContext;
-    @Autowired
     private DownloadBookService downloadBookService;
 
-    private List<Book> bookList = null;
+
 
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
@@ -54,8 +52,7 @@ public class JsonController {
     @RequestMapping(value = "/book", produces = {"application/json; charset=UTF-8"})
     public String viewBookList(@RequestParam(value = "bookIndex", required = false) Integer bookIndex
             , HttpSession session, Model model) {
-        bookList = (List<Book>) session.getAttribute("bookList");
-
+        List<Book>  bookList = (List<Book>) session.getAttribute("bookLi");
         Book book = null;
 
         if (bookIndex != null) {
@@ -64,13 +61,9 @@ public class JsonController {
             book = bookList.get(0);
         }
         model.addAttribute("bookIndex", bookIndex);
-        downloadBookService = (DownloadBookService) appContext.getBean("downloadBookService", String.valueOf(book.getBookId()));
-        try {
-            downloadBookService.download();
-        } catch (Exception e) {
-            logger.error("Exception during downloading book list", e);
-            throw new RuntimeException(e);
-        }
+
+        downloadBookService.download(String.valueOf(book.getBookId()));
+
         return jsonWrappingServise.getJsonString(book);
     }
 
@@ -79,13 +72,22 @@ public class JsonController {
      */
     @ResponseBody
     @RequestMapping(value = "/download")
-    public void downloadBookJpg() {
-        try {
-            downloadBookService.download();
-        } catch (Exception e) {
-            logger.error("Exception during downloading book scans", e);
-            throw new RuntimeException(e);
+    public void downloadBookJpg(@RequestParam(value = "bookIndex", required = true) Integer bookIndex
+            , HttpSession session) {
+
+        List<Book>  bookList = (List<Book>) session.getAttribute("bookLi");
+        Book book = null;
+
+        if (bookIndex != null) {
+            book = bookList.get(bookIndex);
+        } else {
+            book = bookList.get(0);
         }
+
+        downloadBookService.download(String.valueOf(book.getBookId()));
+
+         //   downloadBookService.download();
+
     }
 
 }

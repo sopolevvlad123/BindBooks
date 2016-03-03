@@ -2,7 +2,7 @@
 .idea/
 out/
 *.properties
-*.cfg.xml
+*.xml
 target/
 *.jpg
 *war

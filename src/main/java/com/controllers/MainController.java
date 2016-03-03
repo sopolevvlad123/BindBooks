@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -34,9 +35,12 @@ public class MainController {
      * @return
      */
      @RequestMapping(value = "/", method = RequestMethod.GET)
-        public String getHome() {
+        public String getHome(HttpSession session) {
 
          List<Book> bookList= bookService.getAllBooks();
+
+         session.setAttribute("bookLi", bookList);
+
          return "static/index.html";
     }
 

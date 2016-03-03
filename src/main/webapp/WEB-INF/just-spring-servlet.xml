@@ -12,9 +12,7 @@
 
     <context:component-scan base-package="com" />
 
-    <bean id="downloadBookService" class="com.service.DownloadBookService" scope="prototype">
-        <constructor-arg value="0"/> <!-- dummy value -->
-    </bean>
+
 
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"

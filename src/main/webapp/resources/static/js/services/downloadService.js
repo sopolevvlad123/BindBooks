@@ -4,9 +4,9 @@
 
 app.service('downloadService', function ($http) {
 
-    this.download = function () {
+    this.download = function (bookIndex) {
 
-        $http.get('http://localhost:8080/download')
+        $http.get('http://localhost:8080/download', {params: {bookIndex: bookIndex}})
             .success(function (data) {
             })
             .error(function (err) {

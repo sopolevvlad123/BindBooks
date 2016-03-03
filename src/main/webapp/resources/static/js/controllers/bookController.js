@@ -79,7 +79,7 @@ app.controller('bookController', ['$scope', '$http', 'bookDesc', 'downloadServic
         if ($scope._maxIndex === $scope._Index) {
             if ($scope._Index % 10 === 4) {
                 console.log($scope._Index + ' + download call');
-                downloadService.download();
+                downloadService.download($scope.index.value);
             }
             if ($scope._Index % 10 === 6) {
                 console.log($scope._Index + ' + add call');

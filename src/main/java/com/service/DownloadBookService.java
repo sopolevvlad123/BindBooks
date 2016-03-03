@@ -1,6 +1,7 @@
 package com.service;
 
 import it.sauronsoftware.ftp4j.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -26,20 +27,15 @@ public class DownloadBookService {
     @Value("${directory}")
     private String DIRECTORY;
 
+    @Autowired
+    BookCacheService bookCacheService;
+
     private static final String FOLDER_TEN = "10";
     private static final String FOLDER_TWENTY = "20";
     private static final String FOLDER_THIRTY = "30";
     private static final int DEFAULT_CUR_PAGE = 1;
     private static final int DEFAULT_PAGE_RANGE = 10;
-    private int pageRange = DEFAULT_PAGE_RANGE;
-    private FtpClientAdapter ftpClientAdapter = null;
-    private String bookId;
-    private int currentPage = DEFAULT_CUR_PAGE;
-    private int countPage;
 
-    public DownloadBookService(String bookId) {
-        this.bookId = bookId;
-    }
 
     /**
      * Method downloads each time new 10 pages
@@ -51,92 +47,112 @@ public class DownloadBookService {
      * @throws FTPDataTransferException
      * @throws FTPListParseException
      */
-    public void download() throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
-        initFtpClientAdapter();
-        ftpClientAdapter.connect(IP);
-        File bookDir = new File(DIRECTORY + bookId);
-        if (!bookDir.exists()) {
-            bookDir.mkdir();
+    public void download(String bookId) {
+        int currentPage = DEFAULT_CUR_PAGE;
+        int pageRange = DEFAULT_PAGE_RANGE;
+        FtpClientAdapter ftpClientAdapter = new FtpClientAdapter(LOGIN, PASSWORD);
+        try {
+
+            ftpClientAdapter.connect(IP);
+            File bookDir = new File(DIRECTORY + bookId);
+            if (!bookDir.exists()) {
+                bookDir.mkdir();
+            }
+
+            ftpClientAdapter.setLocalpath(DIRECTORY + bookId);
+
+            changeDirToCoreState(bookId, ftpClientAdapter);
+            ftpClientAdapter.changeDirectory(bookId);
+
+            if (bookCacheService.contains(bookId)) {
+                currentPage = bookCacheService.get(bookId);
+            } else
+
+                pageRange = checkPageRange(currentPage, getCountPage(ftpClientAdapter));
+
+            for (int i = currentPage; i < currentPage + pageRange; i++) {
+                ftpClientAdapter.download(i + ".jpg");
+            }
+
+            bookCacheService.add(bookId, currentPage + pageRange);
+
+        } catch (Exception e) {
+              e.printStackTrace();
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        } finally {
+            try {
+                ftpClientAdapter.disconnect();
+            } catch (FTPException | IOException | FTPIllegalReplyException e) {
+                e.printStackTrace();//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            }
         }
-
-        ftpClientAdapter.setLocalpath(DIRECTORY + bookId);
-
-        changeDirToCoreState(bookId);
-        ftpClientAdapter.changeDirectory(bookId);
-
-        if (currentPage == 1) {
-            setCountPage();
-        }
-
-        checkPageRange();
-        for (int i = currentPage; i < currentPage + pageRange; i++) {
-            ftpClientAdapter.download(i + ".jpg");
-        }
-
-        incrementCurrentPage();
-        ftpClientAdapter.disconnect();
     }
 
-    /**
-     * This method initializes bookId
-     *
-     * @param bookId
-     */
-    public void setBookId(String bookId) {
-        this.bookId = bookId;
-    }
 
-    private void checkPageRange() {
+    private int checkPageRange(int currentPage, int countPage) {
         if (currentPage > countPage) {
-            pageRange = 0;
+            return 0;
         }
-        if (countPage < currentPage + pageRange) {
-            pageRange = countPage - currentPage + 1;
+        if (countPage < currentPage + DEFAULT_PAGE_RANGE) {
+            return countPage - currentPage + 1;
         }
+        return 0;
     }
 
-    private void incrementCurrentPage() {
-        currentPage += pageRange;
-    }
 
-    private void initFtpClientAdapter() {
-        ftpClientAdapter = new FtpClientAdapter(LOGIN, PASSWORD);
-    }
-
-    private boolean changeDirToCoreState(String file) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
-        if (ftpClientAdapter != null) {
-            if (checkDirectory(FOLDER_THIRTY, file)) {
-                return true;
-            } else if (checkDirectory(FOLDER_TWENTY, file)) {
-                return true;
-            } else if (checkDirectory(FOLDER_TEN, file)) ;
-        }
-        return false;
-    }
-
-    private boolean checkDirectory(String dir, String file) throws FTPException, IOException, FTPIllegalReplyException, FTPAbortedException, FTPDataTransferException, FTPListParseException {
-        if (ftpClientAdapter != null) {
-            ftpClientAdapter.changeDirectory(dir);
-            List<String> list = ftpClientAdapter.listNames();
-            if (list.contains(file)) {
-                return true;
+    private boolean changeDirToCoreState(String file, FtpClientAdapter ftpClientAdapter) {
+        try {
+            if (ftpClientAdapter != null) {
+                if (checkDirectory(FOLDER_THIRTY, file, ftpClientAdapter)) {
+                    return true;
+                } else if (checkDirectory(FOLDER_TWENTY, file, ftpClientAdapter)) {
+                    return true;
+                } else if (checkDirectory(FOLDER_TEN, file, ftpClientAdapter)) {
+                    return false;
+                }
             }
-        } else {
-           throw new RuntimeException("ftpClientAdapter is null ");
+        } catch (Exception e) {
+          e.printStackTrace();
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!
         }
-        ftpClientAdapter.changeDirectoryUp();
+
         return false;
     }
 
-    private void setCountPage() throws FTPException, IOException, FTPDataTransferException, FTPListParseException, FTPIllegalReplyException, FTPAbortedException {
+    private boolean checkDirectory(String dir, String file, FtpClientAdapter ftpClientAdapter) {
+        try {
+            if (ftpClientAdapter != null) {
+                ftpClientAdapter.changeDirectory(dir);
+                List<String> list = ftpClientAdapter.listNames();
+                if (list.contains(file)) {
+                    return true;
+                }
+            } else {
+                throw new RuntimeException("ftpClientAdapter is null ");
+            }
+            ftpClientAdapter.changeDirectoryUp();
+        } catch (Exception e) {
+            e.printStackTrace();
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        }
+        return false;
+    }
+
+    private int getCountPage(FtpClientAdapter ftpClientAdapter) {
         int count = 0;
-        List<String> list = ftpClientAdapter.listNames();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).endsWith(".jpg")) {
-                count++;
+        try {
+            List<String> list = ftpClientAdapter.listNames();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).endsWith(".jpg")) {
+                    count++;
+                }
             }
+        } catch (Exception e) {
+           e.printStackTrace();
+            //!!!!!!!!!!!!!!!!!!!!
         }
-        countPage = count;
+
+        return count;
     }
 
 
