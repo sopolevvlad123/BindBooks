@@ -2,8 +2,8 @@ package com.controllers;
 
 import com.entity.BookIrbisHtml;
 import com.service.IrbisService;
-import com.service.JsonWrappingServise;
-import it.sauronsoftware.ftp4j.*;
+import com.service.JsonService;
+import com.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.UnsupportedEncodingException;
 
 import java.util.List;
 
@@ -29,12 +27,12 @@ public class IrbisController {
     @Autowired
     private IrbisService irbisService;
     @Autowired
-    private JsonWrappingServise jsonWrappingServise;
+    private JsonService jsonService;
 
-    @ModelAttribute
+    /*@ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
         response.setHeader("Access-Control-Allow-Origin", "*");
-    }
+    }*/
 
     /**
      * method returns to the view side search results
@@ -43,7 +41,7 @@ public class IrbisController {
      */
     @ResponseBody
     @RequestMapping(value = "/search", produces = "text/plain;charset=UTF-8")
-    public String IrbisSearch(@RequestParam(value = "searchExpr", required = true) String searchExpr) {
+    public String IrbisSearch(@RequestParam(value = Constants.SEARCH_EXPR, required = true) String searchExpr) {
 
         List<BookIrbisHtml> bookIrbisHtmlList = null;
         try {
@@ -52,7 +50,7 @@ public class IrbisController {
             logger.error("Wrong encoding, Amigo", e);
             throw new RuntimeException(e);
         }
-        String result = jsonWrappingServise.getJsonIrbisBookHtml(bookIrbisHtmlList);
+        String result = jsonService.getJSONIrbisBookHtml(bookIrbisHtmlList);
         return result;
     }
 

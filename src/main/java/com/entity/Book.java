@@ -1,5 +1,7 @@
 package com.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -28,6 +30,7 @@ public class Book {
 
     @Id
     @Column(name = "book_id")
+    @JsonProperty("bookId")
     public int getBookId() {
         return bookId;
     }
@@ -37,6 +40,7 @@ public class Book {
     }
 
     @Column(name = "ename")
+    @JsonProperty("name")
     public String getEname() {
         return ename;
     }
@@ -46,6 +50,7 @@ public class Book {
     }
 
     @Column(name = "eyear")
+    @JsonProperty("year")
     public String getYear() {
         return year;
     }
@@ -64,6 +69,7 @@ public class Book {
     }
 
     @Column(name = "author")
+    @JsonProperty("author")
     public String getAuthor() {
         return author;
     }
